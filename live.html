@@ -211,17 +211,18 @@ th:focus {
 <br>
 <br>
 <script>
-var currCell = $('th').first();
-var editing = false;
+var currCell = '';
 
 // User clicks on a cell
 $('th').click(function() {
     currCell = $(this);
+	alert('a: '+curCell);
 });
 
 
 // User navigates table using keyboard
 $('table').keydown(function (e) {
+	alert('innnn ');
     var c = "";
     if (e.which == 39) {
         // Right Arrow
