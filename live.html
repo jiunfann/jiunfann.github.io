@@ -233,15 +233,16 @@ $("table").keydown(function (e) {
         // Down Arrow
         c = currCell.closest('tr').next().find('th:eq(' + 
           currCell.index() + ')');
-    } else if (!editing && (e.which == 13 || e.which == 32)) { 
+    } else if (e.which == 13 || e.which == 32) { 
         // Enter or Spacebar - edit cell
         e.preventDefault();
+		e.submit();
 	e.submit();
-    } else if (!editing && (e.which == 9 && !e.shiftKey)) { 
+    } else if (e.which == 9 && !e.shiftKey) { 
         // Tab
         e.preventDefault();
         c = currCell.next();
-    } else if (!editing && (e.which == 9 && e.shiftKey)) { 
+    } else if (e.which == 9 && e.shiftKey) { 
         // Shift + Tab
         e.preventDefault();
         c = currCell.prev();
