@@ -212,8 +212,8 @@ th:focus {
 <br>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 <script>
-var currCell = document.getElementById("tb1");
-currCell.focus();
+var currCell = $('th').first();
+document.getElementById("tb1").focus();
 
 // User navigates table using keyboard
 $("table").keydown(function (e) {
