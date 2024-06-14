@@ -222,7 +222,8 @@ const changeStyle = sibling => {
 const checkKey = event => {
   event = event || window.event;
   const idx = start.cellIndex;
-
+	alert(idx);
+	alert(event.keyCode);
   if (event.keyCode === 38) {
     // up arrow
     const previousRow = start.parentElement.previousElementSibling;
