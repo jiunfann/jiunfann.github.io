@@ -145,7 +145,7 @@ th, td {
 	
 
 <center><h2 style="color:#f1f1f1;">Sports</h2></center>
-<center><table style="width:100%" class='first-element'>
+<center><table style="width:100%">
     <tr>
     <th><a href="https://jiunfann.github.io/arena.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a></th>
     <th><a href="https://jiunfann.github.io/arena2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a></th>
@@ -174,7 +174,7 @@ th, td {
 <br>
 <br>
 <center><h2 style="color:#f1f1f1;">Chinese</h2></center>
-<center><table style="width:100%">
+<center><table style="width:100%" class='first-element'>
     <tr>
 	<th><a href="https://imanawesome.github.io/web-tv/300.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/355_144.png" alt="TV2"></a></th>
 	<th><a href="https://imanawesome.github.io/web-tv/305.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/425_144.png" alt="TV2"></a></th>
@@ -194,7 +194,9 @@ th, td {
 	<th><a href="https://imanawesome.github.io/web-tv/325.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/382_144.png" alt="TV2"></a></th> 
         <th><a href="https://imanawesome.github.io/web-tv/326.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/43_144.png" alt="TV3"></a></th>
 	<th><a href="https://imanawesome.github.io/web-tv/333.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/162_144.png" alt="TV6" width="100"></a></th>
-        <th><a href="https://imanawesome.github.io/web-tv/335.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/385_144.png" alt="TVOKEY"></a></th> 
+    </tr>
+    <tr>
+	<th><a href="https://imanawesome.github.io/web-tv/335.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/385_144.png" alt="TVOKEY"></a></th> 
     </tr>
 </table></center><br><br><br>
 
@@ -205,17 +207,17 @@ th, td {
 //let start = document.querySelector('.first-element');
 start =  document.getElementsByTagName('a');
 	start.focus();
-//start.style.backgroundColor = '#50b988';
-//start.style.color = 'white';
+start.style.backgroundColor = '#50b988';
+start.style.color = 'white';
 
 const changeStyle = sibling => {
   if (sibling !== null) {
     start.focus();
-    //start.style.backgroundColor = '';
-    //start.style.color = '';
-    //sibling.focus();
-    //sibling.style.backgroundColor = '#50b988';
-    //sibling.style.color = 'white';
+    start.style.backgroundColor = '';
+    start.style.color = '';
+    sibling.focus();
+    sibling.style.backgroundColor = '#50b988';
+    sibling.style.color = 'white';
     start = sibling;
   }
 };
