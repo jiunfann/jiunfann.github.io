@@ -154,7 +154,7 @@ th:focus {
 <center><h2 style="color:#f1f1f1;">Sports</h2></center>
 <center><table id="table-1" style="width:100%">
     <tr>
-    <th tabindex="1" selected><a href="https://jiunfann.github.io/arena.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a></th>
+    <th tabindex="1" id="tb1"><a href="https://jiunfann.github.io/arena.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a></th>
     <th tabindex="2"><a href="https://jiunfann.github.io/arena2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a></th>
 	<th tabindex="3"><a href="https://jiunfann.github.io/asp4.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/241_144.png" alt="SuperSport4"></a></th>	
 	<th tabindex="4"><a href="https://imanawesome.github.io/web-tv/818.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/236_144.png" alt="beIN Sports1"></a></th>
@@ -211,13 +211,9 @@ th:focus {
 <br>
 <br>
 <script>
-var currCell = '';
-
-// User clicks on a cell
-$('th').click(function() {
-    currCell = $(this);
-	alert('a: '+curCell);
-});
+var currCell = document.getElementById("tb1");
+currCell.focus();
+currCell.select();
 
 // User navigates table using keyboard
 $('table-1').keydown(function (e) {
