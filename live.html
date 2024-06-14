@@ -145,9 +145,7 @@ th, td {
 	
 
 <center><h2 style="color:#f1f1f1;">Sports</h2></center>
-
-
-<center><table style="width:100%">
+<center><table style="width:100%" class='first-element'>
     <tr>
     <th><a href="https://jiunfann.github.io/arena.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a></th>
     <th><a href="https://jiunfann.github.io/arena2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a></th>
@@ -155,37 +153,27 @@ th, td {
 	<th><a href="https://imanawesome.github.io/web-tv/818.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/236_144.png" alt="beIN Sports1"></a></th>
     <th><a href="https://imanawesome.github.io/web-tv/817.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/466_144.png" alt="beIN Sports2"></a></th>
     <th><a href="https://imanawesome.github.io/web-tv/819.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/313_144.png" alt="beIN Sports3"></a></th>
-
 </table></center><br><br><br>
-
 <br>
 <br>
-<br>
-
-	  	
-  	<center><h2 style="color:#f1f1f1;">MYTV</h2></center>
-
-
+<br>  	
+<center><h2 style="color:#f1f1f1;">MYTV</h2></center>
 <center><table style="width:100%">
     <tr>
 	<th><a href="https://wakacha.github.io/live/tv1.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/395_144.png" alt="" width="tv1"></a></th>
 	<th><a href="https://wakacha.github.io/live/tv2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/396_144.png" alt="" width="tv2"></a></th>
-        <th><a href="https://wakacha.github.io/live/tv3.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/106_144.png" alt="" width="tvthree"></a></th>
+    <th><a href="https://wakacha.github.io/live/tv3.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/106_144.png" alt="" width="tvthree"></a></th>
     </tr>
 	<tr>
 	<th><a href="https://wakacha.github.io/live/tv8.html" target="_blank"><img src="https://linear-poster.astro.com.my/prod/logo/8TV_v1.png" alt="8tv"></a></th>
 	<th><a href="https://wakacha.github.io/live/tv9.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/48_144.png" alt="" width="tv9"></a></th>
-        <th><a href="https://wakacha.github.io/live/tvokey.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/467_144.png" alt="" width="OKEY"></a></th>
+    <th><a href="https://wakacha.github.io/live/tvokey.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/467_144.png" alt="" width="OKEY"></a></th>
 	</tr>
 </table></center>
-
 <br>
 <br>
 <br>
-
 <center><h2 style="color:#f1f1f1;">Chinese</h2></center>
-
-
 <center><table style="width:100%">
     <tr>
 	<th><a href="https://imanawesome.github.io/web-tv/300.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/355_144.png" alt="TV2"></a></th>
@@ -213,6 +201,56 @@ th, td {
 <br>
 <br>
 <br>
+<script id="rendered-js" >
+let start = document.querySelector('.first-element');
+start.focus();
+start.style.backgroundColor = '#50b988';
+start.style.color = 'white';
+
+const changeStyle = sibling => {
+  if (sibling !== null) {
+    start.focus();
+    start.style.backgroundColor = '';
+    start.style.color = '';
+    sibling.focus();
+    sibling.style.backgroundColor = '#50b988';
+    sibling.style.color = 'white';
+    start = sibling;
+  }
+};
+
+const checkKey = event => {
+  event = event || window.event;
+  const idx = start.cellIndex;
+
+  if (event.keyCode === 38) {
+    // up arrow
+    const previousRow = start.parentElement.previousElementSibling;
+    if (previousRow !== null) {
+      const previousSibling = previousRow.cells[idx];
+      changeStyle(previousSibling);
+    }
+  } else if (event.keyCode === 40) {
+    // down arrow
+    const nextRow = start.parentElement.nextElementSibling;
+    if (nextRow !== null) {
+      const nextSibling = nextRow.cells[idx];
+      changeStyle(nextSibling);
+    }
+  } else if (event.keyCode === 37) {
+    // left arrow
+    const previousSibling = start.previousElementSibling;
+    changeStyle(previousSibling);
+  } else if (event.keyCode === 39) {
+    // right arrow
+    const nextsibling = start.nextElementSibling;
+    changeStyle(nextsibling);
+  }
+};
+
+document.onkeydown = checkKey;
+//# sourceURL=pen.js
+</script>
 
 </body>
 </html>
