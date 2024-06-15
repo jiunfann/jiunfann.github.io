@@ -42,7 +42,6 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-//try{await player.load('https://d3j4fjrwclc3o8.cloudfront.net/CH1/masterCH1.mpd'); 
 try{await player.load('https://live.aqfadtv.xyz/sooka/supersport/index.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
