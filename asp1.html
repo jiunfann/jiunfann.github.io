@@ -21,7 +21,7 @@ player.configure({
       //'e7c650ac72dcd0311411832a8271bb10': 'ea8fa43cc7102e481cd441c58b2ecb08' 
     //}
     servers: {
-      'org.w3.clearkey': '{ "keys":[ { "kty":"oct", "k":"6o+kPMcQLkgc1EHFiy7LCA", "kid":"58ZQrHLc0DEUEYMqgnG7EA" } ], "type":"temporary" }'
+      'org.w3.clearkey': '{ "keys":[ { "kty":"oct", "k":"8ir0Lq73M1yeKu5EIVA7Pg", "kid":"rBQGeGyFQRmd4/rdQG8rXw" } ], "type":"temporary" }'
     }
   }
 });
@@ -30,7 +30,7 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-try{await player.load('https://linearjitp-playback.astro.com.my/dash-wv/dashiso/5148/default.mpd'); 
+try{await player.load('https://d277c08tzca9og.cloudfront.net/CH2/masterCH2.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
