@@ -29,7 +29,7 @@ player.addEventListener('error', onPlayerErrorEvent);
 controls.addEventListener('error', onUIErrorEvent); 
 player.getNetworkingEngine().registerRequestFilter(function(type, request) {
     if (type == shaka.net.NetworkingEngine.RequestType.LICENSE) {
-        request.headers['CWIP-Auth-Header'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3bXZlciI6Miwid21pZGZtdCI6ImFzY2lpIiwid21pZHR5cCI6MSwid21rZXl2ZXIiOjEsIndtaWRsZW4iOjUxMiwid21pZCI6Ik5HWm1ZV0k0TnpndFl6RmxOeTAwT0dOaUxXSTNOR0l0TlRFeFpUUTVNREF5Tm1NeSIsIndtb3BpZCI6MzIsImV4cCI6MTcxNjUxNDY0OSwiaWF0IjoxNzE1OTEwNjQ5fQ.l4vB5FORzFxCMLqELxsluDUEI66Xj5Vrz6vrwFgMk94';
+        request.headers['CWIP-Auth-Header'] = 'b3ccf73a7a664f85ae7411367ffb2fa7';
     }
 });
 try{await player.load('https://d277c08tzca9og.cloudfront.net/CH2/masterCH2.mpd'); 
