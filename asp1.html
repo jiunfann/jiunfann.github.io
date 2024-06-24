@@ -65,6 +65,11 @@
 			return 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3bXZlciI6Miwid21pZGZtdCI6ImFzY2lpIiwid21pZHR5cCI6MSwid21rZXl2ZXIiOjEsIndtaWRsZW4iOjUxMiwid21pZCI6Ik1tVXhNelEyTUdJdFlqVmxaQzAwWVRObExXRTNNMkV0T1RRMlpUYzJPV1F3TTJZMSIsIndtb3BpZCI6MzIsImV4cCI6MTcwMDgxMzcyMSwiaWF0IjoxNzAwMjA5NzIxfQ.-YTH9ihJNWGAjnqGNC44zu23e4Ru33UcnaufeePNbb8';
 		  }
 		});
+	    Object.defineProperty(navigator, 'userAgent', {
+	      get: function() { // Latest (Feb 18, 2024)
+	        return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Firefox/122.0 Edg/121.0.2277.112 OPR/107.0.0.0 UCBrowser/16.3.0.1281 Vivaldi/6.5.3206.63 YaBrowser/23.9.0.2325 Yowser/2.5 Safari/537.36';
+	      }
+	    });
         document.addEventListener('shaka-ui-loaded', init);
         document.addEventListener('shaka-ui-load-failed', initFailed);
     </script>
