@@ -16,7 +16,7 @@
         </div>
     </center>
     <script>
-        const manifestUri = "https://d277c08tzca9og.cloudfront.net/CH2/masterCH2.mpd";
+        const manifestUri = "https://d3j4fjrwclc3o8.cloudfront.net/CH1/masterCH1.mpd";
         async function init() {
             const video = document.getElementById('video');
             const ui = video['ui'];
@@ -27,7 +27,7 @@
             player.configure({
                 drm: {
                     "clearKeys": {
-                        'f22af42eaef7335c9e2aee4495503b3e': 'ac1406786c8541199de3fadd406f2b5f'
+                        'b3ccf73a7a664f85ae7411367ffb2fa7': '9687d91b7fd647a88183d0a4cc925f77'
                     }
                 }
             });
@@ -39,10 +39,10 @@
             } catch (error) {
                 onPlayerError(error);
             }
-            player.getNetworkingEngine().registerRequestFilter(function(type, request) {
-                if (type == shaka.net.NetworkingEngine.RequestType.SEGMENT) {
-                    request.headers['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3bXZlciI6Miwid21pZGZtdCI6ImFzY2lpIiwid21pZHR5cCI6MSwid21rZXl2ZXIiOjEsIndtaWRsZW4iOjUxMiwid21pZCI6Ik1tVXhNelEyTUdJdFlqVmxaQzAwWVRObExXRTNNMkV0T1RRMlpUYzJPV1F3TTJZMSIsIndtb3BpZCI6MzIsImV4cCI6MTcwMDgxMzcyMSwiaWF0IjoxNzAwMjA5NzIxfQ.-YTH9ihJNWGAjnqGNC44zu23e4Ru33UcnaufeePNbb8';                }
-            });
+            //player.getNetworkingEngine().registerRequestFilter(function(type, request) {
+             //   if (type == shaka.net.NetworkingEngine.RequestType.SEGMENT) {
+              //      request.headers['Authorization'] = 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3bXZlciI6Miwid21pZGZtdCI6ImFzY2lpIiwid21pZHR5cCI6MSwid21rZXl2ZXIiOjEsIndtaWRsZW4iOjUxMiwid21pZCI6Ik1tVXhNelEyTUdJdFlqVmxaQzAwWVRObExXRTNNMkV0T1RRMlpUYzJPV1F3TTJZMSIsIndtb3BpZCI6MzIsImV4cCI6MTcwMDgxMzcyMSwiaWF0IjoxNzAwMjA5NzIxfQ.-YTH9ihJNWGAjnqGNC44zu23e4Ru33UcnaufeePNbb8';                }
+            //});
         }
 
         function onPlayerErrorEvent(errorEvent) {
@@ -60,6 +60,11 @@
         function initFailed(errorEvent) {
             console.error('Unable to load the UI library!');
         }
+		Object.defineProperty(navigator, 'authorization', {
+		  get: function() { // Latest (Feb 18, 2024)
+			return 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ3bXZlciI6Miwid21pZGZtdCI6ImFzY2lpIiwid21pZHR5cCI6MSwid21rZXl2ZXIiOjEsIndtaWRsZW4iOjUxMiwid21pZCI6Ik1tVXhNelEyTUdJdFlqVmxaQzAwWVRObExXRTNNMkV0T1RRMlpUYzJPV1F3TTJZMSIsIndtb3BpZCI6MzIsImV4cCI6MTcwMDgxMzcyMSwiaWF0IjoxNzAwMjA5NzIxfQ.-YTH9ihJNWGAjnqGNC44zu23e4Ru33UcnaufeePNbb8';
+		  }
+		});
         document.addEventListener('shaka-ui-loaded', init);
         document.addEventListener('shaka-ui-load-failed', initFailed);
     </script>
