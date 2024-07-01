@@ -18,7 +18,7 @@ player.configure({
   drm: {
     clearKeys: {
       // 'key-id-in-hex': 'key-in-hex',
-      "bda7f74b842f4f0eb142395dadd91f07": "fb12f661d640e4ebdf38e312302260eb"
+      '79f4028730acca9ab8b00f26158ddb10': '91febe843c08c7cc523efd827292e40e'
     }
   }
             });
@@ -41,7 +41,7 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-try{await player.load('https://d3j4fjrwclc3o8.cloudfront.net/CH2/masterCH2.mpd'); 
+try{await player.load('https://linearjitp-playback.astro.com.my/hls-mp4-fp/linear/2506/default.m3u8'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
