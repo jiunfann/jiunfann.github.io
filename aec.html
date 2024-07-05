@@ -26,8 +26,9 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
-console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
+//try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
+try{await player.load('https://a2ef74f67b1f43689b5bef947c40d9ed.mediatailor.ap-southeast-1.amazonaws.com/v1/dash/4ad19442a5c36709752f44aae3b98db617a3c3d7/AEC_Production/masterCH1.mpd?aws.sessionId=306e10e0-9f25-4bc0-a4f9-eccb80faa4d0');
+  console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
 function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
