@@ -23,7 +23,7 @@ player.configure({
     }
   }
 });
-player.configure('streaming.useNativeHlsOnSafari', false);
+player.configure('streaming.useNativeHlsOnSafari', true);
 window.player = player; 
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
@@ -36,10 +36,5 @@ function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);}
 function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
 document.addEventListener('shaka-ui-loaded', init); 
 document.addEventListener('shaka-ui-load-failed', initFailed); 
- Object.defineProperty(navigator, 'userAgent', {
-      get: function() { // Latest (Feb 18, 2024)
-        return 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Firefox/122.0 Edg/121.0.2277.112 OPR/107.0.0.0 UCBrowser/16.3.0.1281 Vivaldi/6.5.3206.63 YaBrowser/23.9.0.2325 Yowser/2.5 Safari/537.36';
-      }
-    });
 </script>
 </html>
