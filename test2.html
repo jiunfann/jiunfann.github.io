@@ -17,8 +17,8 @@ var clearKeys = {
 	'keys': [
 		{
 			'kty': 'oct',
-			'k': 'QfI0+4hZCvOw0iQRGmG/cQ', // Replace with your actual base64-encoded key
-			'kid': 'jx2jmTJSR+ymrN17r7lfog' // Replace with your actual base64-encoded key ID
+			'k': '6o+kPMcQLkgc1EHFiy7LCA', // Replace with your actual base64-encoded key
+			'kid': '58ZQrHLc0DEUEYMqgnG7EA' // Replace with your actual base64-encoded key ID
 		}
 	]
 };
@@ -38,7 +38,7 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-try{await player.load('https://d3j4fjrwclc3o8.cloudfront.net/CH4/masterCH4.mpd'); 
+try{await player.load('https://linearjitp-playback.astro.com.my/dash-wv/dashiso/5148/default.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
