@@ -26,17 +26,18 @@
                     }
                 ]
             };
-
+console.log('here 1111');  
             // Add event listener for error handling
             player.addEventListener('error', function(event) {
                 console.error('Error code', event.detail.code, 'object', event.detail);
             });
-
+console.log('here 2222');  
             // Clear Key configuration
             var config = {
                 drm: {
                     clearKeys: clearKeys.keys.reduce((keys, key) => {
                         keys[key.kid] = key.k;
+			console.log(keys);    
                         return keys;
                     }, {})
                 }
