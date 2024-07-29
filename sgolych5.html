@@ -18,7 +18,7 @@ player.configure({
   drm: {
     clearKeys: {
       // 'key-id-in-hex': 'key-in-hex',
-      '7aace826bd5d48d0bbf330ad1ec16f5c': '88b44df0ab0831d1bd2fdb3d23cb7e8f'
+      'c9a5ac35c7084fe7b636805b7bde58dc': '046fadba2c1cd2cf184b33ae6e1fc495'
     }
   }
 });
@@ -27,7 +27,7 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-try{await player.load('https://mwmpos03.akamaized.net/out/v1/34786af906004c77814e5bc098595bb4/manifest.mpd'); 
+try{await player.load('https://rest-as.ott.kaltura.com/api_v3/service/assetFile/action/playManifest/partnerId/147/assetId/1586985/assetType/media/assetFileId/20074438/contextType/PLAYBACK/isAltUrl/False/a.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
