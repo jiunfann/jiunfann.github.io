@@ -16,7 +16,7 @@ player.configure({
   drm: {
     clearKeys: {
       // 'key-id-in-hex': 'key-in-hex',
-        'efda647dad723563b625be8c05ee6110': '6776985938b332164b97b81fe566a34a'
+        '41da095819c74b30aa94daf2b83ce379': '6417c265eeff537dba1bc5418f007ad2'
     }
   }
 });
@@ -26,7 +26,7 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-try{await player.load('https://linearjitp-playback.astro.com.my/dash-wv/linear/2604/default.mpd'); 
+try{await player.load('https://linear14-playback.sooka.my/CH2/masterCH2.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
