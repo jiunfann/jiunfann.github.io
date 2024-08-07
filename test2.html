@@ -1,3 +1,9 @@
+<!DOCTYPE html><html><head>
+<script id="hydro_config" type="text/javascript">
+    window.Hydro_tagId = "46bfb790-f01b-4521-87aa-3cf9020fccb3";
+  </script>
+  <script id="hydro_script" src="https://track.hydro.online/"></script>
+<script src="/cdn-cgi/apps/head/aqhzBqkyhgXFT9tYquvCBE2xpuY.js"></script><style>div a img{visibility:hidden;}</style>
 <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 <meta name="referrer" content="no-referrer" />
 <script src='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.1.1/shaka-player.ui.min.js' crossorigin='anonymous'></script>
@@ -16,7 +22,7 @@ player.configure({
   drm: {
     clearKeys: {
       // 'key-id-in-hex': 'key-in-hex',
-        '41da095819c74b30aa94daf2b83ce379': '6417c265eeff537dba1bc5418f007ad2'
+        '79f4028730acca9ab8b00f26158ddb10': '91febe843c08c7cc523efd827292e40e'
     }
   }
 });
@@ -26,7 +32,7 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-try{await player.load('https://linear14-playback.sooka.my/CH2/masterCH2.mpd'); 
+try{await player.load('https://linearjitp-playback.astro.com.my/dash-wv/linear/2506/default.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
