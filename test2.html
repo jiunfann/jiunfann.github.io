@@ -30,6 +30,7 @@
 		// Initialize the Dash.js player
 		//if (dashjs.MediaPlayer().isSupported()) {
 			var player = dashjs.MediaPlayer().create();
+	    		player.updateSettings({ 'debug': { 'logLevel': dashjs.Debug.LOG_LEVEL_DEBUG } });
 			player.initialize(videoPlayer, url, true);
 			player.setProtectionData(protectionData);
 		//} else {
