@@ -39,10 +39,11 @@ player.addEventListener('error', function(event) {
         console.error('Session storage quota exceeded!');
         alert('Session storage limit reached. Please clear some data or restart your session.');
         // Optionally, clear some session storage data here
-        sessionStorage.clear(); // Use cautiously
+        
     } else {
         console.error('Error code', error.code, 'object', error);
     }
+    sessionStorage.clear(); // Use cautiously
     
 });
 controls.addEventListener('error', onUIErrorEvent); 
