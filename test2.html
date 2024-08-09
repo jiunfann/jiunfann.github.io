@@ -35,16 +35,20 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', function(event) {
     const error = event.detail;
-    if (error.code === shaka.util.Error.Code.QUOTA_EXCEEDED_ERROR) {
+    console.log('JF Error = '+error.code);
+    if (error.code === shaka.util.Error.Code.DRM_KEY_SYSTEM_ACCESS_DENIED) {
+        console.error('Robustness level error: ', error);
+        // Optional: Adjust robustness levels or other configurations here
+        reloadPlayer();
+    }else if (error.code === shaka.util.Error.Code.QUOTA_EXCEEDED_ERROR) {
         console.error('Session storage quota exceeded!');
         alert('Session storage limit reached. Please clear some data or restart your session.');
         // Optionally, clear some session storage data here
-        
+         reloadPlayer();
     } else {
         console.error('Error code', error.code, 'object', error);
-    }
-    location.reload();
-    
+         reloadPlayer();
+    }    
 });
 controls.addEventListener('error', onUIErrorEvent); 
 try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
