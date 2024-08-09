@@ -39,21 +39,21 @@ player.addEventListener('error', function(event) {
     if (error.code === shaka.util.Error.Code.DRM_KEY_SYSTEM_ACCESS_DENIED) {
         console.error('Robustness level error: ', error);
         // Optional: Adjust robustness levels or other configurations here
-        reloadPlayer();
+        location.reload();
     }else if (error.code === shaka.util.Error.Code.QUOTA_EXCEEDED_ERROR) {
         console.error('Session storage quota exceeded!');
         alert('Session storage limit reached. Please clear some data or restart your session.');
         // Optionally, clear some session storage data here
-         reloadPlayer();
+         location.reload();
     } else {
         console.error('Error code', error.code, 'object', error);
-         reloadPlayer();
+         location.reload();
     }    
 });
 controls.addEventListener('error', onUIErrorEvent); 
 try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
-function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);reloadPlayer();} 
+function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);location.reload();} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
 function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
