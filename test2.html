@@ -25,7 +25,9 @@ player.configure({
 player.configure({
   streaming: {
       rebufferingGoal: 5,  // Set this to a higher value if necessary
-      bufferingGoal: 10     // Adjust this according to your needs
+      bufferingGoal: 10,     // Adjust this according to your needs
+      bufferBehind: 5,     // Amount of content in seconds to keep buffered behind the current playhead
+      autoLowLatencyMode: true  // Automatically enable low latency mode if conditions allow
   }
 });
 //player.configure({drm:{servers:{'com.widevine.alpha':'https://license.dstv.com/widevine/getLicense?CrmId=afl&AccountId=afl&ContentId=SH2&SessionId=D3C00F885C24B9C6&Ticket=C839A8D71AB94299'}}}); 
