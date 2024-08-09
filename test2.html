@@ -9,6 +9,7 @@
 <center> 
 <div data-shaka-player-container style='width: 100%; height: 100%'><video autoplay data-shaka-player id='video' style='width:100%;height:100%;'></video></div>
 <script> 
+shaka.log.setLevel(shaka.log.Level.DEBUG);
 async function init() { 
 const video = document.getElementById('video'); 
 const ui = video['ui']; 
