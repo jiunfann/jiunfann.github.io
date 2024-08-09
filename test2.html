@@ -20,12 +20,19 @@ player.configure({
       // 'key-id-in-hex': 'key-in-hex',
       '01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8' 
     }
+    streaming: {
+        autoPlay: true,
+        rebufferingGoal: 10,  // Set this to a higher value if necessary
+        bufferingGoal: 30     // Adjust this according to your needs
+    }
   }
 });
 //player.configure({drm:{servers:{'com.widevine.alpha':'https://license.dstv.com/widevine/getLicense?CrmId=afl&AccountId=afl&ContentId=SH2&SessionId=D3C00F885C24B9C6&Ticket=C839A8D71AB94299'}}}); 
 window.player = player; 
 window.ui = ui; 
-player.addEventListener('error', onPlayerErrorEvent); 
+player.addEventListener('error', function(event) {
+    console.error('Error code', event.detail.code, 'object', event.detail);
+});
 controls.addEventListener('error', onUIErrorEvent); 
 try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
