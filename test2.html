@@ -33,14 +33,13 @@ window.ui = ui;
 player.addEventListener('error', onPlayerErrorEvent); 
 player.addEventListener('warning', onPlayerWarningEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-//try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
-try{await player.load('https://linearjitp02-playback.astro.com.my/dash-wv/linear/5103/default.mpd');
+try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
 function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
-function onPlayerWarningEvent(errorEvent) {onPlayerWarning(event.detail);} 
-function onPlayerWarning(warning) {console.error('Warning code', warning.code, 'object', warning);location.reload();} 
+function onPlayerWarningEvent(warningEvent) {onPlayerWarning(event.detail);} 
+function onPlayerWarning(warning) {console.error('Warning code', warning.code, 'object', warning);} 
 function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
 document.addEventListener('shaka-ui-loaded', init); 
 document.addEventListener('shaka-ui-load-failed', initFailed); 
