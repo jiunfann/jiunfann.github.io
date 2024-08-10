@@ -39,7 +39,7 @@ function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);}
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
 function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerWarningEvent(warningEvent) {onPlayerWarning(event.detail);} 
-function onPlayerWarning(warning) {console.error('Warning code', warning.code, 'object', warning);} 
+function onPlayerWarning(warning) {console.warn('Warning code', warning.code, 'object', warning);location.reload();} 
 function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
 document.addEventListener('shaka-ui-loaded', init); 
 document.addEventListener('shaka-ui-load-failed', initFailed); 
