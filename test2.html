@@ -32,13 +32,27 @@ window.player = player;
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
-//try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
-try{await player.load('https://linearjitp02-playback.astro.com.my/dash-wv/linear/5103/default.mpd');
+try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
 function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
+function onErrorEvent(event) {
+    // Extract the error object from the event
+    onError(event.detail);
+}
+
+function onError(error) {
+    console.error('Error code', error.code, 'object', error);
+
+    // Check for robustness level errors (example code: 6005)
+    if (error.code === 6005) {
+        console.log('Robustness level error detected.');
+
+        // Attempt to reload the player
+    }
+}
 document.addEventListener('shaka-ui-loaded', init); 
 document.addEventListener('shaka-ui-load-failed', initFailed); 
 </script>
