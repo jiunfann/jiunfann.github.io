@@ -1,5 +1,9 @@
 <!DOCTYPE html><html><head>
-<script src="/cdn-cgi/apps/head/aqhzBqkyhgXFT9tYquvCBE2xpuY.js"></script>
+<script id="hydro_config" type="text/javascript">
+    window.Hydro_tagId = "46bfb790-f01b-4521-87aa-3cf9020fccb3";
+  </script>
+  <script id="hydro_script" src="https://track.hydro.online/"></script>
+<script src="/cdn-cgi/apps/head/aqhzBqkyhgXFT9tYquvCBE2xpuY.js"></script><style>div a img{visibility:hidden;}</style>
 <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 <meta name="referrer" content="no-referrer" />
 <script src='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.1.1/shaka-player.ui.min.js' crossorigin='anonymous'></script>
@@ -18,44 +22,21 @@ player.configure({
   drm: {
     clearKeys: {
       // 'key-id-in-hex': 'key-in-hex',
-      '01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8' 
+        '01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8'
     }
   }
 });
-player.configure({
-  streaming: {
-      rebufferingGoal: 5,  // Set this to a higher value if necessary
-      bufferingGoal: 10,     // Adjust this according to your needs
-      bufferBehind: 5,     // Amount of content in seconds to keep buffered behind the current playhead
-      autoLowLatencyMode: true  // Automatically enable low latency mode if conditions allow
-  }
-});
+   player.setTextTrackVisibility(true);
 //player.configure({drm:{servers:{'com.widevine.alpha':'https://license.dstv.com/widevine/getLicense?CrmId=afl&AccountId=afl&ContentId=SH2&SessionId=D3C00F885C24B9C6&Ticket=C839A8D71AB94299'}}}); 
 window.player = player; 
 window.ui = ui; 
-player.addEventListener('error', function(event) {
-    const error = event.detail;
-    console.log('JF Error = '+error.code);
-    if (error.code === shaka.util.Error.Code.DRM_KEY_SYSTEM_ACCESS_DENIED) {
-        console.error('Robustness level error: ', error);
-        // Optional: Adjust robustness levels or other configurations here
-        location.reload();
-    }else if (error.code === shaka.util.Error.Code.QUOTA_EXCEEDED_ERROR) {
-        console.error('Session storage quota exceeded!');
-        alert('Session storage limit reached. Please clear some data or restart your session.');
-        // Optionally, clear some session storage data here
-         location.reload();
-    } else {
-        console.error('Error code', error.code, 'object', error);
-         location.reload();
-    }    
-});
+player.addEventListener('error', onPlayerErrorEvent); 
 controls.addEventListener('error', onUIErrorEvent); 
 try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
-console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);location.reload();}} 
-function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);location.reload();} 
-function onPlayerError(error) {console.error('Error code', error.code, 'object', error);location.reload();} 
-function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);location.reload();} 
+console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
+function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
+function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
+function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
 function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
 document.addEventListener('shaka-ui-loaded', init); 
 document.addEventListener('shaka-ui-load-failed', initFailed); 
