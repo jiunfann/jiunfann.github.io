@@ -52,10 +52,10 @@ player.addEventListener('error', function(event) {
 });
 controls.addEventListener('error', onUIErrorEvent); 
 try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
-console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
+console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);location.reload();}} 
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);location.reload();} 
-function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
-function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
+function onPlayerError(error) {console.error('Error code', error.code, 'object', error);location.reload();} 
+function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);location.reload();} 
 function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
 document.addEventListener('shaka-ui-loaded', init); 
 document.addEventListener('shaka-ui-load-failed', initFailed); 
