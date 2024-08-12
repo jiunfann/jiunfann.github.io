@@ -285,6 +285,8 @@ th:focus {
 
 		switch (event.key) {
 			case 'ArrowRight':
+				alert(rows[currentRowIndex]);
+				alert(rows[currentRowIndex].children[currentCellIndex]);
 				currentCellIndex = (currentCellIndex + 1) % rows[0].children.length;
 				break;
 			case 'ArrowLeft':
