@@ -148,33 +148,6 @@ th:focus {
 <center>
 </center>
 <body>
- <script>
-	const headers = document.querySelectorAll('th');
-	let currentIndex = 0;
-
-	// Initial selection
-	headers[currentIndex].classList.add('selected');
-
-	document.addEventListener('keydown', (event) => {
-		headers[currentIndex].classList.remove('selected');
-
-		switch (event.key) {
-			case 'ArrowRight':
-				currentIndex = (currentIndex + 1) % headers.length;
-				break;
-			case 'ArrowLeft':
-				currentIndex = (currentIndex - 1 + headers.length) % headers.length;
-				break;
-			case 'Enter':
-				alert(`You selected: ${headers[currentIndex].innerText}`);
-				break;
-			default:
-				break;
-		}
-
-		headers[currentIndex].classList.add('selected');
-	});
-</script>
 <br>
 <br>
 <br>
@@ -297,5 +270,32 @@ th:focus {
 <br>
 <br>
 <br>
+<script>
+	const headers = document.querySelectorAll('th');
+	let currentIndex = 0;
+
+	// Initial selection
+	headers[currentIndex].classList.add('selected');
+
+	document.addEventListener('keydown', (event) => {
+		headers[currentIndex].classList.remove('selected');
+
+		switch (event.key) {
+			case 'ArrowRight':
+				currentIndex = (currentIndex + 1) % headers.length;
+				break;
+			case 'ArrowLeft':
+				currentIndex = (currentIndex - 1 + headers.length) % headers.length;
+				break;
+			case 'Enter':
+				alert(`You selected: ${headers[currentIndex].innerText}`);
+				break;
+			default:
+				break;
+		}
+
+		headers[currentIndex].classList.add('selected');
+	});
+</script>
 </body>
 </html>
