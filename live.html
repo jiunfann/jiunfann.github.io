@@ -279,6 +279,7 @@ td:focus {
 
 	// Initial selection
 	rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
+	document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 	
 	document.addEventListener('keydown', (event) => {
 	
