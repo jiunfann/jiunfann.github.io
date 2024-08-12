@@ -285,17 +285,17 @@ td:focus {
 		rows[currentRowIndex].children[currentCellIndex].classList.remove('selected');
 
 		switch (event.key) {
-			case 'ArrowRight':
+			case 'ArrowRight' || 39:
 				currentCellIndex = (currentCellIndex + 1) % rows[currentRowIndex].children.length;
 				break;
-			case 'ArrowLeft':
+			case 'ArrowLeft' || 37:
 				currentCellIndex = (currentCellIndex - 1 + rows[currentRowIndex].children.length) % rows[currentRowIndex].children.length;
 				break;
-			case 'ArrowDown':
+			case 'ArrowDown' || 40:
 				currentRowIndex = (currentRowIndex + 1) % rows.length;
 				
 				break;
-			case 'ArrowUp':
+			case 'ArrowUp' || 38:
 				if (currentRowIndex === 0) {
 					currentCellIndex = 0;
 				} else {
@@ -303,7 +303,7 @@ td:focus {
 				}
 				
 				break;
-			case 'Enter':
+			case 'Enter' || 13:
 				const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).href;
 				window.open(url,'_blank');
 				break;
