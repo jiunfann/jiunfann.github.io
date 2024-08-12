@@ -36,6 +36,7 @@ player.addEventListener('buffering', function(event) {
         bufferingTimeout = setTimeout(function() {
             console.log('Buffering has lasted more than 3 seconds.');
             // You can add additional logic here, like showing a message to the user
+			location.reload();
         }, 3000);
 
     } else {
