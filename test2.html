@@ -133,6 +133,7 @@ th, td {
   border-style:outset;
   border-color: #a67b5b;#696969
   text-align: center;
+  vertical-align: middle;
 }
 td:hover {
     color: #fff;
@@ -141,22 +142,6 @@ td:hover {
 td:focus {
     background: #f44;
 }
-.td a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px; 
-  line-height: 25px;
-  border-radius: 4px;
-}
-
-.td a.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
 .selected {
 	color: #fff;
     background: #CA293E;
@@ -325,8 +310,6 @@ td:focus {
 			default:
 				break;
 		}
-
-		alert(currentRowIndex+"|"+currentCellIndex);
 		rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
 		
 	});
