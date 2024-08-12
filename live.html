@@ -279,11 +279,11 @@ td:focus {
 
 	// Initial selection
 	rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
-
+	
 	document.addEventListener('keydown', (event) => {
 	
 		rows[currentRowIndex].children[currentCellIndex].classList.remove('selected');
-
+		alert(event.key);
 		switch (event.key) {
 			case 'ArrowRight' || 39:
 				currentCellIndex = (currentCellIndex + 1) % rows[currentRowIndex].children.length;
