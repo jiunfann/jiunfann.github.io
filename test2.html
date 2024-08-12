@@ -1,73 +1,301 @@
-<!DOCTYPE html><html><head>
-<meta name='viewport' content='width=device-width, initial-scale=1.0' />
-<meta name="referrer" content="no-referrer" />
-<script src='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.1.1/shaka-player.ui.min.js' crossorigin='anonymous'></script>
-<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.1.1/controls.min.css' crossorigin='anonymous' />
-<script async src='/cdn-cgi/challenge-platform/h/g/scripts/invisible.js?cb=6ebfddfd6fa3499c'></script></head><body><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
-<body bgcolor='black' style='margin:0' oncontextmenu='return false' onkeydown='return false' onmousedown='return false'><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
-<center> 
-<div data-shaka-player-container style='width: 100%; height: 100%'><video autoplay data-shaka-player id='video' style='width:100%;height:100%;'></video></div>
-<script> 
-async function init() { 
-const video = document.getElementById('video'); 
-const ui = video['ui']; 
-const controls = ui.getControls(); 
-const player = controls.getPlayer(); 
-player.configure({
-  drm: {
-    clearKeys: {
-      // 'key-id-in-hex': 'key-in-hex',
-        '01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8'
-    }
+<!DOCTYPE html>
+<html>
+<head>
+<title>Live</title>
+<body>
+
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+
+body {
+  background-color: #646464; #838996; background-image: url('');
+}
+</style>
+<style>
+	<span> <! ---    ---  </span>
+* {box-sizing: border-box;}
+
+body { 
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+}
+
+.header {
+  overflow: hidden;
+  background-color: #f1f1f2;
+  padding: 5px 5px;
+}
+
+.header a {
+  float: left;
+  color: black;
+  text-align: center;
+  padding: 12px;
+  text-decoration: none;
+  font-size: 18px; 
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+.header a.logo {
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.header a:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+.header-right {
+  float: right;
+}
+
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
   }
-});
-   player.setTextTrackVisibility(true);
-//player.configure({drm:{servers:{'com.widevine.alpha':'https://license.dstv.com/widevine/getLicense?CrmId=afl&AccountId=afl&ContentId=SH2&SessionId=D3C00F885C24B9C6&Ticket=C839A8D71AB94299'}}}); 
-window.player = player; 
-window.ui = ui; 
-player.addEventListener('error', onPlayerErrorEvent); 
-player.addEventListener('buffering', function(event) {
-    if (event.buffering) {
-        // Buffering started
-        console.log('Buffering started...');
-        bufferingStartTime = Date.now();
+  
+  .header-right {
+    float: none;
+  }
+}
+.href {
+}
+* {
+  box-sizing: border-box;
+}
 
-        // Set a timeout for 3 seconds
-        bufferingTimeout = setTimeout(function() {
-            console.log('Buffering has lasted more than 3 seconds.');
-            // You can add additional logic here, like showing a message to the user
-			location.reload();
-        }, 3000);
+body {
+  font-family: Arial, Helvetica, sans-serif;
+}
 
-    } else {
-        // Buffering ended
-        console.log('Buffering ended.');
 
-        if (bufferingTimeout) {
-            clearTimeout(bufferingTimeout);
-        }
+}
 
-        // Calculate the total buffering time
-        if (bufferingStartTime !== null) {
-            const bufferingDuration = Date.now() - bufferingStartTime;
-            console.log(`Buffering lasted ${bufferingDuration} ms.`);
-        }
+/* Create two columns/boxes that floats next to each other */
+nav {
+  float: left;
+  width: 30%;
+  height: 300px; /* only for demonstration, should be removed */
+  background: #ccc;
+  padding: 20px;
+}
 
-        // Reset the start time
-        bufferingStartTime = null;
-    }
-});
+/* Style the list inside the menu */
+nav ul {
+  list-style-type: none;
+  padding: 0;
+}
 
-controls.addEventListener('error', onUIErrorEvent); 
-try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
-console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}} 
-function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
-function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
-function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
-function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
-document.addEventListener('shaka-ui-loaded', init); 
-document.addEventListener('shaka-ui-load-failed', initFailed); 
+article {
+  float: left;
+  padding: 20px;
+  width: 70%;
+  background-color: #f1f1f1;
+  height: 300px; /* only for demonstration, should be removed */
+}
+
+/* Clear floats after the columns */
+section::after {
+  content: "";
+  display: table;
+  clear: both;
+}
+
+/* Style the footer */
+footer {
+  background-color: #f1f1f1;
+  padding: 10px;
+  text-align: center;
+  color: black;
+  font-weight: bold;
+}
+
+/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
+@media (max-width: 600px) {
+  nav, article {
+    width: 100%;
+    height: auto;
+  }
+}
+</style>
+	
+<style>
+th, td {
+  border-style:outset;
+  border-color: #a67b5b;#696969
+}
+th:hover {
+    color: #fff;
+    background: #CA293E;
+}
+th:focus {
+    background: #f44;
+}
+.selected {
+	color: #fff;
+    background: #CA293E;
+}
+</style>
+<center>
+</center>
+<body>
+ <script>
+	const headers = document.querySelectorAll('th');
+	let currentIndex = 0;
+
+	// Initial selection
+	headers[currentIndex].classList.add('selected');
+
+	document.addEventListener('keydown', (event) => {
+		headers[currentIndex].classList.remove('selected');
+
+		switch (event.key) {
+			case 'ArrowRight':
+				currentIndex = (currentIndex + 1) % headers.length;
+				break;
+			case 'ArrowLeft':
+				currentIndex = (currentIndex - 1 + headers.length) % headers.length;
+				break;
+			case 'Enter':
+				alert(`You selected: ${headers[currentIndex].innerText}`);
+				break;
+			default:
+				break;
+		}
+
+		headers[currentIndex].classList.add('selected');
+	});
 </script>
-<script type='text/javascript' src='https://encrypt2.skycdn.ga/udp/Counter'></script>
-<script type="text/javascript">(function(){window['__CF$cv$params']={r:'6ebfddfd6fa3499c',m:'D4YJv6au4IB.PA2DqTLxZStJydWh51fiwv2G9eC_8Gk-1647290874-0-AYjwUV5YDhzDCl2C9r7Xi8tcRCaEcQTbCAMGCeTNqDvB45L3MnGBdkKHu6G387dXhgYcctN3ANz21D9fu1HhsRAcyKR0VCGqS9aNi6PQ8MvMDWfoO6WhJhqlukHMDXtYfg==',s:[0x6c6fafcade,0x9f5e65094f],u:'/cdn-cgi/challenge-platform/h/g'}})();</script><script defer src="https://static.cloudflareinsights.com/beacon.min.js/v652eace1692a40cfa3763df669d7439c1639079717194" integrity="sha512-Gi7xpJR8tSkrpF7aordPZQlW2DLtzUlZcumS8dMQjwDHEnw9I7ZLyiOj/6tZStRBGtGgN6ceN6cMH8z7etPGlw==" data-cf-beacon='{"rayId":"6ebfddfd6fa3499c","version":"2021.12.0","r":1,"token":"a919438182254588b33b5297605b9ab4","si":100}' crossorigin="anonymous"></script>
+<br>
+<br>
+<br>
+<br>
+	
+
+<center><h2 style="color:#f1f1f1;">Sports</h2></center>
+<center><table style="width:100%">
+    <tr>
+    <th><a href="https://astro.webhop.me/arena.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a></th>
+    <th><a href="https://astro.webhop.me/arena2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a></th>
+	<th><a href="https://mytvmalaysia.site/arenabola1.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/486_144.png" alt="bola"></a></th>	
+	<th><a href="https://mytvmalaysia.site/arenabola2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/487_144.png" alt="bola2"></a></th>	
+	</tr>
+	<tr>
+    <th><a href="https://myastro.click/assp1.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/154_144.png" alt="SuperSport"></a></th>
+    <th><a href="https://myastro.click/assp2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/138_144.png" alt="SuperSport2"></a></th>
+	<th><a href="https://myastro.click/assp3.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/164_144.png" alt="SuperSport3"></a></th>	
+	<th><a href="https://astro.webhop.me/assp4.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/241_144.png" alt="SuperSport4"></a></th>	
+	</tr>
+	<tr>
+	<th><a href="https://rtm-player.glueapi.io/latest/h/4" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sukan_RTM_1_April.png" width="144" height="60" alt="rtmsukan"></a></th>
+	<th><a href="https://astro.webhop.me/bein1.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/236_144.png" alt="beIN Sports1"></a></th>
+    <th><a href="https://astro.webhop.me/bein2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/466_144.png" alt="beIN Sports2"></a></th>
+    <th><a href="https://astro.webhop.me/bein3.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/313_144.png" alt="beIN Sports3"></a></th>
+	</tr>
+	<tr>
+	<th><a href="https://jiunfann.github.io/mutv.html" target="_blank"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b8/MUTV_logo.png/200px-MUTV_logo.png" width="144" height="60" alt="mutv"></a></th>
+	<th><a href="https://astro.webhop.me/wwe.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/194_144.png" alt="wwe"></a></th>
+    <th><a href="https://astro.webhop.me/spotv.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/456_144.png" alt="spotv"></a></th>
+    <th><a href="https://astro.webhop.me/spotv2.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/474_144.png" alt="spotv2"></a></th>
+	</tr>
+</table></center>
+<br>
+<br>
+<br>  
+<center><h2 style="color:#f1f1f1;">MYTV</h2></center>
+<center><table style="width:100%">
+    <tr>
+	<th><a href="https://rtm-player.glueapi.io/latest/h/1" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/395_144.png" alt="" width="tv1"></a></th>
+	<th><a href="https://rtm-player.glueapi.io/latest/h/2" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/396_144.png" alt="" width="tv2"></a></th>
+    <th><a href="https://zazerconer.github.io/live-tv-malaysia-with-player/channel/media-prima/tv3/index.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/106_144.png" alt="" width="tv3"></a></th>
+    </tr>
+	<tr>
+	<th><a href="https://wakacha.github.io/live/tv8.html" target="_blank"><img src="https://linear-poster.astro.com.my/prod/logo/8TV_v1.png" alt="8tv"></a></th>
+	<th><a href="https://wakacha.github.io/live/tv9.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/48_144.png" alt="" width="tv9"></a></th>
+    <th><a href="https://rtm-player.glueapi.io/latest/h/3" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/467_144.png" alt="" width="OKEY"></a></th>
+	</tr>
+</table></center>
+<br>
+<br>
+<br>
+<center><h2 style="color:#f1f1f1;">Chinese</h2></center>
+<center><table style="width:100%">
+    <tr>
+	<th><a href="https://astro.webhop.me/iqiyi.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/355_144.png" alt="iqiyi"></a></th>
+	<th><a href="https://astro.webhop.me/tvbclassic.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/425_144.png" alt="tvbclassic"></a></th>
+	<th><a href="https://imanawesome.github.io/web-tv/309.html" target="_blank"><img src="https://alchetron.com/cdn/celestial-movies-1c9f0f99-d3a2-4a6e-acdd-de1ec02be11-resize-750.jpeg" width="144" height="80" alt="Suria" width="100"></a>
+	<th><a href="https://jiunfann.github.io/sgch8.html" target="_blank"><img src="https://poster.starhubgo.com/Linear_channels2/103_1920x1080_HTV.png" alt="channel 8" width="144" height="80"></a>    
+    </tr>
+    <tr>
+    <th><a href="https://imanawesome.github.io/web-tv/320.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/384_144.png" alt="tvbs" width="100"></a></th>
+    <th><a href="https://astro.webhop.me/ccm.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/187_144.png" alt="CCM"></a></th>
+	<th><a href="https://jiunfann.github.io/aec.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/182_144.png" alt="aec"></a></th> 
+	<th><a href="https://astro.webhop.me/huaheidai.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/162_144.png" alt="huanhee"></a></th>
+    </tr>
+	<tr>
+    <th><a href="https://imanawesome.github.io/web-tv/310.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/203_144.png" alt="tvbjade" width="100"></a></th>
+    <th><a href="https://imanawesome.github.io/web-tv/316.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/424_144.png" alt="cti"></a></th>
+	<th><a href="https://imanawesome.github.io/web-tv/317.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/427_144.png" alt="tvbentertain"></a></th> 
+	<th><a href="https://imanawesome.github.io/web-tv/319.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/383_144.png" alt="xinghe"></a></th>
+    </tr>
+	<tr>
+    <th><a href="https://imanawesome.github.io/web-tv/325.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/382_144.png" alt="phoenix" width="100"></a></th>
+    <th><a href="https://imanawesome.github.io/web-tv/326.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/43_144.png" alt="phoenixinfo"></a></th>
+	<th><a href="https://imanawesome.github.io/web-tv/335.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/385_144.png" alt="cctv4"></a></th> 
+    </tr>
+</table></center>
+<br>
+<br>
+<br>
+<center><h2 style="color:#f1f1f1;">Movie</h2></center>
+<center><table style="width:100%">
+	<tr>
+    <th><a href="https://astro.webhop.me/hbo.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/143_144.png" alt="hbo" width="100"></a></th>
+    <th><a href="https://astro.webhop.me/hbofamily.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/450_144.png" alt="hbofamily"></a></th> 
+	<th><a href="https://astro.webhop.me/hbohits.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/449_144.png" alt="xinghe"></a></th>
+    </tr>
+	<tr>
+    <th><a href="https://astro.webhop.me/cinem.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/337_144.png" alt="cinemax"></a></th>
+	<th><a href="https://astro.webhop.me/tvn.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/190_144.png" alt="tvn"></a></th>
+	<th><a href="https://astro.webhop.me/tvnmovies.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/274_144.png" alt="tvnmovies"></a></th> 
+    </tr>
+</table></center>
+<br>
+<br>
+<br>
+<center><h2 style="color:#f1f1f1;">Documentary</h2></center>
+<center><table style="width:100%">
+	<tr>
+    <th><a href="https://astro.webhop.me/discov.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/376_144.png" alt="discovery" width="100"></a></th>
+    <th><a href="https://astro.webhop.me/discoasia.html"" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/136_144.png" alt="discoasia"></a></th> 
+	<th><a href="https://astro.webhop.me/history.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/144_144.png" alt="xinghe"></a></th>
+	<th><a href="https://astro.webhop.me/animpla.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/377_144.png" alt="cinemax"></a></th>
+    </tr>
+</table></center>
+<br>
+<br>
+<br>
+<center><h2 style="color:#f1f1f1;">Kids</h2></center>
+<center><table style="width:100%">
+	<tr>
+    <th><a href="https://astro.webhop.me/dreamworks.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/485_144.png" alt="dreamworks" width="100"></a></th>
+    <th><a href="https://astro.webhop.me/carnet.html"" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/371_144.png" alt="discoasia"></a></th> 
+	<th><a href="https://astro.webhop.me/nicklo.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/370_144.png" alt="xinghe"></a></th>
+	<th><a href="https://astro.webhop.me/nickjr.html" target="_blank"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/392_144.png" alt="cinemax"></a></th>
+    </tr>
+</table></center>
+<br><br><br>
+<br>
+<br>
+<br>
+</body>
 </html>
