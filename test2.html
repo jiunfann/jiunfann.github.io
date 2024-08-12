@@ -304,10 +304,8 @@ td:focus {
 				
 				break;
 			case 'Enter':
-
 				const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).href;
-				alert(url);
-				window.open=(url,'_blank');
+				window.open(url,'_blank');
 				break;
 			default:
 				break;
