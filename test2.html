@@ -277,7 +277,7 @@ th:focus {
 	let currentCellIndex = 0;
 
 	// Initial selection
-	rows[currentRowIndex].classList.add('selected');
+	rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
 
 	document.addEventListener('keydown', (event) => {
 	
@@ -310,7 +310,7 @@ th:focus {
 				break;
 		}
 
-
+		alert(currentRowIndex+"|"+currentCellIndex);
 		rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
 		
 	});
