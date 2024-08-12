@@ -132,6 +132,7 @@ footer {
 th, td {
   border-style:outset;
   border-color: #a67b5b;#696969
+  text-align: center;
 }
 th:hover {
     color: #fff;
@@ -271,10 +272,7 @@ th:focus {
 <br>
 <br>
 <script>
-	const headers = document.querySelectorAll('th');
 	const rows = document.querySelectorAll('tr');
-	let isHeaderSelected = true;
-	let currentHeaderIndex = 0;
 	let currentRowIndex = 0;
 	let currentCellIndex = 0;
 
@@ -282,62 +280,40 @@ th:focus {
 	rows[currentRowIndex].classList.add('selected');
 
 	document.addEventListener('keydown', (event) => {
-		if (isHeaderSelected) {
-			headers[currentHeaderIndex].classList.remove('selected');
-		} else {
-			rows[currentRowIndex].children[currentCellIndex].classList.remove('selected');
-		}
+	
+		rows[currentRowIndex].children[currentCellIndex].classList.remove('selected');
 
 		switch (event.key) {
 			case 'ArrowRight':
-				if (isHeaderSelected) {
-					currentHeaderIndex = (currentHeaderIndex + 1) % headers.length;
-				} else {
-					currentCellIndex = (currentCellIndex + 1) % rows[0].children.length;
-				}
+				currentCellIndex = (currentCellIndex + 1) % rows[0].children.length;
 				break;
 			case 'ArrowLeft':
-				if (isHeaderSelected) {
-					currentHeaderIndex = (currentHeaderIndex - 1 + headers.length) % headers.length;
-				} else {
-					currentCellIndex = (currentCellIndex - 1 + rows[0].children.length) % rows[0].children.length;
-				}
+				currentCellIndex = (currentCellIndex - 1 + rows[0].children.length) % rows[0].children.length;
 				break;
 			case 'ArrowDown':
-				if (isHeaderSelected) {
-					isHeaderSelected = false;
-					currentRowIndex = 0;
-					currentCellIndex = currentHeaderIndex; // Start with the cell under the selected header
-				} else {
-					currentRowIndex = (currentRowIndex + 1) % rows.length;
-				}
+				currentRowIndex = (currentRowIndex + 1) % rows.length;
+				
 				break;
 			case 'ArrowUp':
-				if (!isHeaderSelected) {
-					if (currentRowIndex === 0) {
-						isHeaderSelected = true;
-						currentCellIndex = currentHeaderIndex;
-					} else {
-						currentRowIndex = (currentRowIndex - 1 + rows.length) % rows.length;
-					}
+				if (currentRowIndex === 0) {
+					isHeaderSelected = true;
+					currentCellIndex = currentHeaderIndex;
+				} else {
+					currentRowIndex = (currentRowIndex - 1 + rows.length) % rows.length;
 				}
+				
 				break;
 			case 'Enter':
-				if (isHeaderSelected) {
-					alert(`You selected header: ${headers[currentHeaderIndex].innerText}`);
-				} else {
-					alert(`You selected: ${rows[currentRowIndex].children[currentCellIndex].innerText}`);
-				}
+				alert(`You selected: ${rows[currentRowIndex].children[currentCellIndex].innerText}`);
+				
 				break;
 			default:
 				break;
 		}
 
-		if (isHeaderSelected) {
-			headers[currentHeaderIndex].classList.add('selected');
-		} else {
-			rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
-		}
+
+		rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
+		
 	});
 </script>
 </body>
