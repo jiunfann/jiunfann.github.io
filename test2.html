@@ -61,7 +61,7 @@ function setupPlayer(){
 	});
 
 	controls.addEventListener('error', onUIErrorEvent); 
-	try{await player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
+	try{player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
 	console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}}
 } 
 function reloadPlayer(){
