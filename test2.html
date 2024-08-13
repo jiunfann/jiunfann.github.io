@@ -12,7 +12,7 @@ async function init() {
 var video = document.getElementById('video');  
 var ui = video['ui']; 
 var controls = ui.getControls(); 
-var player = new shaka.Player(video);
+var player;//new shaka.Player(video);
 player = controls.getPlayer(); 
 setupPlayer();	
 function setupPlayer(){
@@ -70,8 +70,6 @@ function reloadPlayer(){
 	if (player) {
 		player.destroy().then(() => {
 			console.log('Player destroyed. Reloading...');	
-			ui = video['ui']; 
-			controls = ui.getControls(); 
 			player = new shaka.Player(video);
 			player = controls.getPlayer(); 
 			setupPlayer(); // Function to reinitialize the player
