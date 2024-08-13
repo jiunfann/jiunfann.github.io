@@ -6,7 +6,7 @@
 </head><body><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
 <body bgcolor='black' style='margin:0' oncontextmenu='return false' onkeydown='return false' onmousedown='return false'><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
 <center> 
-<div data-shaka-player-container id="data-shaka-player-container" style='width: 100%; height: 100%'><video autoplay data-shaka-player id='video' style='width:100%;height:100%;' controls></video></div>
+<div data-shaka-player-container id="data-shaka-player-container" style='width: 100%; height: 100%'><video data-shaka-player id='video' style='width:100%;height:100%;' controls></video></div>
 <script> 
 async function init() { 
 var video = document.getElementById('video');  
@@ -19,7 +19,7 @@ setupPlayer();
 function setupPlayer(){
 	player = new shaka.Player(video);
 	ui = new shaka.ui.Overlay(player, video, document.getElementById('data-shaka-player-container'));
-
+	player = ui.getControls().getPlayer();
 	player.configure({
 	  drm: {
 		clearKeys: {
@@ -31,7 +31,7 @@ function setupPlayer(){
 	   player.setTextTrackVisibility(true);
 	//player.configure({drm:{servers:{'com.widevine.alpha':'https://license.dstv.com/widevine/getLicense?CrmId=afl&AccountId=afl&ContentId=SH2&SessionId=D3C00F885C24B9C6&Ticket=C839A8D71AB94299'}}}); 
 	window.player = player; 
-	//window.ui = ui; 
+	window.ui = ui; 
 	player.addEventListener('error', onPlayerErrorEvent); 
 	player.addEventListener('buffering', function(event) {
 		if (event.buffering) {
