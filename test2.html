@@ -67,6 +67,7 @@ function setupPlayer(){
 }
 function reloadPlayer(){
 	if (player) {
+		/*
 		player.destroy().then(() => {
 			console.log('Player destroyed. Reloading...');	
 			try{
@@ -76,7 +77,8 @@ function reloadPlayer(){
 			player = controls.getPlayer(); 
 			} catch (error) {console.log(error);}
 			setupPlayer(); // Function to reinitialize the player
-		});
+		});*/
+		setupPlayer();
 	}
 }
 }
