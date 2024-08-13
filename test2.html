@@ -12,7 +12,7 @@ async function init() {
 var video = document.getElementById('video');  
 var ui = video['ui']; 
 var controls = ui.getControls(); 
-var player = controls.getPlayer(); 
+var player = new shaka.Player(video);//controls.getPlayer(); 
 setupPlayer();	
 function setupPlayer(){
 	
@@ -61,24 +61,17 @@ function setupPlayer(){
 		}
 	});
 
-	controls.addEventListener('error', onUIErrorEvent); 
+	//controls.addEventListener('error', onUIErrorEvent); 
 	try{player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
 	console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}
 }
 function reloadPlayer(){
 	if (player) {
-		/*
 		player.destroy().then(() => {
 			console.log('Player destroyed. Reloading...');	
-			try{
-			video = document.getElementById('video');  
-			ui = video['ui']; 
-			controls = ui.getControls(); 
-			player = controls.getPlayer(); 
-			} catch (error) {console.log(error);}
+			player = new shaka.Player(video);
 			setupPlayer(); // Function to reinitialize the player
-		});*/
-		setupPlayer();
+		});
 	}
 }
 }
