@@ -18,8 +18,8 @@ var ui;
 setupPlayer();	
 function setupPlayer(){
 	player = new shaka.Player(video);
-	ui = new shaka.ui.Overlay(player, video, document.getElementById('data-shaka-player-container'));
-	//player = ui.getControls().getPlayer();
+	ui = new video['ui']; 
+	player = ui.getControls().getPlayer();
 	player.configure({
 	  drm: {
 		clearKeys: {
