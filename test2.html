@@ -19,15 +19,7 @@ setupPlayer();
 function setupPlayer(){
 	player = new shaka.Player(video);
 	ui = new shaka.ui.Overlay(player, video, document.getElementById('data-shaka-player-container'));
-	ui.getControls().addEventListener('ready', function() {
-        var seekBar = ui.getControls().getSeekBar();
-        if (seekBar) {
-            console.log('Seek bar length:', seekBar.length);
-        } else {
-            console.error('Seek bar is not defined');
-        }
-    });
-	player = ui.getControls().getPlayer();
+	//player = ui.getControls().getPlayer();
 	player.configure({
 	  drm: {
 		clearKeys: {
@@ -38,7 +30,7 @@ function setupPlayer(){
 	});
 	   player.setTextTrackVisibility(true);
 	//player.configure({drm:{servers:{'com.widevine.alpha':'https://license.dstv.com/widevine/getLicense?CrmId=afl&AccountId=afl&ContentId=SH2&SessionId=D3C00F885C24B9C6&Ticket=C839A8D71AB94299'}}}); 
-	//window.player = player; 
+	window.player = player; 
 	//window.ui = ui; 
 	player.addEventListener('error', onPlayerErrorEvent); 
 	player.addEventListener('buffering', function(event) {
