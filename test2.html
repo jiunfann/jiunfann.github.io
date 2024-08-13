@@ -12,8 +12,8 @@ async function init() {
 const video = document.getElementById('video');  
 //var ui = video['ui']; 
 //var controls = ui.getControls(); 
-const player;
-const ui;
+const player = new shaka.Player(video);
+const ui = new shaka.ui.PlayerControls(player, video);
 
 setupPlayer();	
 function setupPlayer(){
