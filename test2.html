@@ -12,10 +12,10 @@ async function init() {
 const video = document.getElementById('video');  
 const ui = video['ui']; 
 const controls = ui.getControls(); 
-const player = controls.getPlayer(); 
+var player = controls.getPlayer(); 
 setupPlayer();	
 function setupPlayer(){
-	try{player = controls.getPlayer(); } catch (error) {console.log(error);}
+	
 	player.configure({
 	  drm: {
 		clearKeys: {
@@ -69,6 +69,7 @@ function reloadPlayer(){
 	if (player) {
 		player.destroy().then(() => {
 			console.log('Player destroyed. Reloading...');	
+			try{player = controls.getPlayer(); } catch (error) {console.log(error);}
 			setupPlayer(); // Function to reinitialize the player
 		});
 	}
