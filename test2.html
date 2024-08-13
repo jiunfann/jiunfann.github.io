@@ -73,10 +73,10 @@ function setupPlayer(){
 }
 function reloadPlayer(){
 	if (player) {
-		player.destroy().then(() => {
+		//player.destroy().then(() => {
 			console.log('Player destroyed. Reloading...');	
 			setupPlayer(); // Function to reinitialize the player
-		});
+		//});
 	}
 }
 }
