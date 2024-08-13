@@ -18,7 +18,7 @@ var ui;
 setupPlayer();	
 function setupPlayer(){
 	player = new shaka.Player(video);
-	ui = new video['ui']; 
+	ui = video['ui']; 
 	player = ui.getControls().getPlayer();
 	player.configure({
 	  drm: {
