@@ -10,10 +10,10 @@
 <div data-shaka-player-container id="data-shaka-player-container" style='width: 100%; height: 100%'><video data-shaka-player id='video' style='width:100%;height:100%;' controls></video></div>
 <script> 
 async function init() { 
-const video = document.getElementById('video');  
+var video = document.getElementById('video');  
 //var ui = video['ui']; 
 //var controls = ui.getControls(); 
-const player = new shaka.Player(video);
+var player;
 //const ui = new shaka.ui.PlayerControls(player, video);
 
 setupPlayer();	
