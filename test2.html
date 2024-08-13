@@ -15,7 +15,7 @@ const controls = ui.getControls();
 const player = controls.getPlayer(); 
 setupPlayer();	
 function setupPlayer(){
-	player = controls.getPlayer(); 
+	try{player = controls.getPlayer(); } catch (error) {onPlayerError(error);}
 	player.configure({
 	  drm: {
 		clearKeys: {
