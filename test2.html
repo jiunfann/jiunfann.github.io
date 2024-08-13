@@ -13,7 +13,7 @@ var video = document.getElementById('video');
 var ui = video['ui']; 
 var controls = ui.getControls(); 
 var player=new shaka.Player(video);
-player = controls.getPlayer(); 
+//player = controls.getPlayer(); 
 setupPlayer();	
 function setupPlayer(){
 	
@@ -27,7 +27,7 @@ function setupPlayer(){
 	});
 	   player.setTextTrackVisibility(true);
 	//player.configure({drm:{servers:{'com.widevine.alpha':'https://license.dstv.com/widevine/getLicense?CrmId=afl&AccountId=afl&ContentId=SH2&SessionId=D3C00F885C24B9C6&Ticket=C839A8D71AB94299'}}}); 
-	//window.player = player; 
+	window.player = player; 
 	window.ui = ui; 
 	player.addEventListener('error', onPlayerErrorEvent); 
 	player.addEventListener('buffering', function(event) {
@@ -71,7 +71,7 @@ function reloadPlayer(){
 		player.destroy().then(() => {
 			console.log('Player destroyed. Reloading...');	
 			player = new shaka.Player(video);
-			player = controls.getPlayer(); 
+			//player = controls.getPlayer(); 
 			setupPlayer(); // Function to reinitialize the player
 		});
 	}
