@@ -10,13 +10,16 @@
 <script> 
 async function init() { 
 var video = document.getElementById('video');  
-var ui = video['ui']; 
-var controls = ui.getControls(); 
-var player=new shaka.Player(video);
-player = controls.getPlayer(); 
+//var ui = video['ui']; 
+//var controls = ui.getControls(); 
+var player;
+var ui;
+
 setupPlayer();	
 function setupPlayer(){
-	
+	player = new shaka.Player(video);
+	ui = new shaka.ui.Overlay(player, video, document.getElementById('data-shaka-player-container'));
+	player = ui.getControls().getPlayer();
 	player.configure({
 	  drm: {
 		clearKeys: {
@@ -62,7 +65,7 @@ function setupPlayer(){
 		}
 	});
 
-	controls.addEventListener('error', onUIErrorEvent); 
+	//controls.addEventListener('error', onUIErrorEvent); 
 	try{player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
 	console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}
 }
@@ -70,8 +73,8 @@ function reloadPlayer(){
 	if (player) {
 		player.destroy().then(() => {
 			console.log('Player destroyed. Reloading...');	
-			player = new shaka.Player(video);
-			player = controls.getPlayer(); 
+			//player = new shaka.Player(video);
+			//player = controls.getPlayer(); 
 			setupPlayer(); // Function to reinitialize the player
 		});
 	}
