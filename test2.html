@@ -13,7 +13,7 @@ var video = document.getElementById('video');
 var ui = video['ui']; 
 var controls = ui.getControls(); 
 var player=new shaka.Player(video);
-//player = controls.getPlayer(); 
+player = controls.getPlayer(); 
 setupPlayer();	
 function setupPlayer(){
 	
@@ -71,7 +71,7 @@ function reloadPlayer(){
 		player.destroy().then(() => {
 			console.log('Player destroyed. Reloading...');	
 			player = new shaka.Player(video);
-			//player = controls.getPlayer(); 
+			player = controls.getPlayer(); 
 			setupPlayer(); // Function to reinitialize the player
 		});
 	}
