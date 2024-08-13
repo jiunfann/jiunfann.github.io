@@ -10,9 +10,9 @@
 <script> 
 async function init() { 
 const video = document.getElementById('video');  
-const ui = null; 
-const controls = null; 
-const player = null; 
+const ui = video['ui']; 
+const controls = ui.getControls(); 
+const player = controls.getPlayer(); 
 setupPlayer();	
 function setupPlayer(){
 	ui = video['ui']; 
