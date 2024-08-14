@@ -12,13 +12,13 @@
 async function init() { 
 var video = document.getElementById('video');  
 var ui = video['ui']; 
-//var controls = ui.getControls(); 
+var controls = ui.getControls(); 
 var player;
-var ui;
 
 setupPlayer();	
 function setupPlayer(){
-	player = new shaka.Player(video);
+	//player = new shaka.Player(video);
+	player = controls.getPlayer();
 	player.configure({
 	  drm: {
 		clearKeys: {
