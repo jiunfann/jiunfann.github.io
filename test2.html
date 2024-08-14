@@ -19,11 +19,11 @@ var player;
 
 setupPlayer();	
 function setupPlayer(){
-	video = document.getElementById('video');  
 	player = new shaka.Player(video);
+	video = document.getElementById('video');  
 	ui = video['ui']; 
 	controls = ui.getControls();
-	player = controls.getPlayer();	
+	//player = controls.getPlayer();	
 	if (player){
 		
 
