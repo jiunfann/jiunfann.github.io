@@ -21,6 +21,7 @@ setupPlayer();
 function setupPlayer(){
 	player = new shaka.Player(video);
 	video = document.getElementById('video');  
+	video.load();
 	ui = video['ui']; 
 	controls = ui.getControls();
 	player = controls.getPlayer();	
