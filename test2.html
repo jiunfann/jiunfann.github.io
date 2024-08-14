@@ -21,7 +21,7 @@ var player;
 
 setupPlayer();	
 function setupPlayer(){
-	ui = new shaka.ui.Overlay(shaka.Player, uiContainer, video);
+	ui = new shaka.ui.PlayerControls(player, video);
     player = ui.getPlayer();
 
 	if (player){
