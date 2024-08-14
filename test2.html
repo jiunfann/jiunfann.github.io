@@ -14,14 +14,14 @@
 async function init() { 
 var video = document.getElementById('video');  
 var uiContainer = document.getElementById('controls');
-var ui; 
+//var ui; 
 var controls; 
 var player;	
-//const ui = new shaka.ui.PlayerControls(player, video);
+const ui = new shaka.ui.PlayerControls(player, video);
 
 setupPlayer();	
 function setupPlayer(){
-	ui = new shaka.ui.PlayerControls(player, video);
+	//const ui = new shaka.ui.PlayerControls(player, video);
     player = ui.getPlayer();
 
 	if (player){
