@@ -19,6 +19,7 @@ setupPlayer();
 function setupPlayer(){
 	//player = new shaka.Player(video);
 	//video.shakaPlayer = player;
+	source = video.getAttribute('data-shaka-player');
 	ui = video['ui']; 
 	controls = ui.getControls(); 
 	player = controls.getPlayer();
@@ -73,11 +74,19 @@ function setupPlayer(){
 	console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}
 }
 function reloadPlayer(){
+
 	if (player) {
-		player.destroy().then(() => {
-			console.log('Player destroyed. Reloading...');	
-			setupPlayer(); // Function to reinitialize the player
-		});
+		var currentSource = player.getAssetUri();
+        player.load(currentSource).then(() => {
+            console.log('Video reloaded!');
+        }).catch((error) => {
+            console.error('Error reloading video', error);
+        });
+		//player.destroy().then(() => {
+		//	console.log('Player destroyed. Reloading...');	
+		//	setupPlayer(); // Function to reinitialize the player
+		//});
+		
 	}
 }
 }
