@@ -327,8 +327,8 @@ td:focus {
 				console.log("Timeout reached. Complete channel number: " + channelNumber);
 				var tempRow='0';
 				var tempCell='0';
-				console.log("channelNumber.length(): " + channelNumber.length());
-				if (channelNumber.length()>1){
+				console.log("channelNumber.length: " + channelNumber.length);
+				if (channelNumber.length>1){
 					tempRow = channelNumber.substring(0,1);
 					tempCell = channelNumber.substring(1,channelNumber.length());
 					const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).href;
