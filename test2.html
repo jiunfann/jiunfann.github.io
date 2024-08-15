@@ -325,9 +325,16 @@ td:focus {
 			clearTimeout(inputTimeout);
 			inputTimeout = setTimeout(() => {
 				console.log("Timeout reached. Complete channel number: " + channelNumber);
-				//const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).href;
-				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
-				//window.open(url,'_blank');
+				var tempRow='0';
+				var tempCell='0';
+				console.log("channelNumber.length(): " + channelNumber.length());
+				if (channelNumber.length()>1){
+					tempRow = channelNumber.substring(0,1);
+					tempCell = channelNumber.substring(1,channelNumber.length());
+					const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).href;
+					window.open(url,'_blank');
+				}
+				
 				channelNumber = ''; // Reset the channel number
 			}, 2000); // Adjust the timeout duration as needed
 		}
