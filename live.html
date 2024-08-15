@@ -351,8 +351,10 @@ td:focus {
 						tempRow = channelNumber.substring(0,2);
 						tempCell = channelNumber.substring(2,channelNumber.length);
 					}
+					try{
 					const url = document.getElementById('row'+tempRow+'cell'+tempCell).href;
 					window.open(url,'_blank');
+					}catch(error){console.log(error);}
 				}
 				channelDisplay.style.display = 'none';
 				channelNumber = ''; // Reset the channel number
