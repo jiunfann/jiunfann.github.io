@@ -274,7 +274,8 @@ td:focus {
 <br>
 <script>
 	const rows = document.querySelectorAll('table tr');
-	var channelNumber = '';
+	let channelNumber = '';
+	let inputTimeout;
 	let currentRowIndex = 0;
 	let currentCellIndex = 0;
 
