@@ -23,7 +23,6 @@ player.configure({
   }
 });
 player.setTextTrackVisibility(true);
-//player.configure({drm:{servers:{'com.widevine.alpha':'https://license.dstv.com/widevine/getLicense?CrmId=afl&AccountId=afl&ContentId=SH2&SessionId=D3C00F885C24B9C6&Ticket=C839A8D71AB94299'}}}); 
 window.player = player; 
 window.ui = ui; 
 player.addEventListener('error', onPlayerErrorEvent); 
@@ -39,12 +38,12 @@ if (event.buffering) {
 		// You can add additional logic here, like showing a message to the user
 		if (player) {
 			var currentSource = player.getAssetUri();
-		player.load(currentSource).then(() => {
-				video.play();
+			player.load(currentSource).then(() => {
+			video.play();
 		    console.log('Video reloaded!');
-		}).catch((error) => {
-		    console.error('Error reloading video', error);
-		});
+			}).catch((error) => {
+				console.error('Error reloading video', error);
+			});
 		}
 	}, 3000);
 
