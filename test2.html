@@ -316,10 +316,9 @@ td:focus {
 				break;
 		}
 		rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
-		alert(event.key);
+		alert(even.key);
 		if (event.key >= 0 && event.key <= 9) { // Check if the key is a number (0-9)
-			const digit = String.fromCharCode(event.key);
-			channelNumber += digit;
+			channelNumber += event.key;
 			console.log("Channel number so far: " + channelNumber);
 
 			clearTimeout(inputTimeout);
