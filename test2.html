@@ -86,12 +86,7 @@ body {
 .program {
 	font-size: 0.9em;
 	text-align: left;
-	padding: 10px;
-}
-.program-title {
-	font-weight: bold;
-	text-align: left;
-	padding: 10px;
+	padding: 20px;
 }
 body {
   font-family: Arial, Helvetica, sans-serif;
@@ -412,7 +407,7 @@ td:focus {
                     const channelElement = document.createElement('div');
                     const currentProgramElement = document.createElement('div');
                     currentProgramElement.className = 'program';
-                    currentProgramElement.innerHTML = `<div class="program-title">Current:</div> ${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
+                    currentProgramElement.innerHTML = `${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
 
                     channelElement.appendChild(currentProgramElement);
 
