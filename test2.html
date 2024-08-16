@@ -149,6 +149,7 @@ th, td {
   border-color: #a67b5b;#696969
   text-align: center;
   vertical-align: middle;
+  font-color: #fff;
 }
 td:hover {
     color: #fff;
@@ -177,14 +178,14 @@ td:focus {
     <tr>
     <td align="center"><a href="https://astro.webhop.me/arena.html" target="_blank" id="row0cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a><br>00<div id="schedule-container-235"></div></td>
     <td align="center"><a href="https://astro.webhop.me/arena2.html" target="_blank" id="row0cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a><br>01<div id="schedule-container-457"></td>
-	<td align="center"><a href="https://mytvmalaysia.site/arenabola1.html" target="_blank" id="row0cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/486_144.png" alt="bola"></a><br>02</td>	
-	<td align="center"><a href="https://mytvmalaysia.site/arenabola2.html" target="_blank" id="row0cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/487_144.png" alt="bola2"></a><br>03</td>	
+	<td align="center"><a href="https://mytvmalaysia.site/arenabola1.html" target="_blank" id="row0cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/486_144.png" alt="bola"></a><br>02<div id="schedule-container-486"></td>	
+	<td align="center"><a href="https://mytvmalaysia.site/arenabola2.html" target="_blank" id="row0cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/487_144.png" alt="bola2"></a><br>03<div id="schedule-container-487"></td>	
 	</tr>
 	<tr>
-    <td align="center"><a href="https://myastro.click/assp1.html" target="_blank" id="row1cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/154_144.png" alt="SuperSport"></a><br>10</td>
-    <td align="center"><a href="https://myastro.click/assp2.html" target="_blank" id="row1cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/138_144.png" alt="SuperSport2"></a><br>11</td>
-	<td align="center"><a href="https://myastro.click/assp3.html" target="_blank" id="row1cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/164_144.png" alt="SuperSport3"></a><br>12</td>	
-	<td align="center"><a href="https://astro.webhop.me/assp4.html" target="_blank" id="row1cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/241_144.png" alt="SuperSport4"></a><br>13</td>	
+    <td align="center"><a href="https://myastro.click/assp1.html" target="_blank" id="row1cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/154_144.png" alt="SuperSport"></a><br>10<div id="schedule-container-154"></td>
+    <td align="center"><a href="https://myastro.click/assp2.html" target="_blank" id="row1cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/138_144.png" alt="SuperSport2"></a><br>11<div id="schedule-container-138"></td>
+	<td align="center"><a href="https://myastro.click/assp3.html" target="_blank" id="row1cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/164_144.png" alt="SuperSport3"></a><br>12<div id="schedule-container-164"></td>	
+	<td align="center"><a href="https://astro.webhop.me/assp4.html" target="_blank" id="row1cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/241_144.png" alt="SuperSport4"></a><br>13<div id="schedule-container-241"></td>	
 	</tr>
 	<tr>
 	<td align="center"><a href="https://rtm-player.glueapi.io/latest/h/4" target="_blank" id="row2cell0"><img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sukan_RTM_1_April.png" width="144" height="60" alt="rtmsukan"></a><br>20</td>
@@ -369,6 +370,12 @@ td:focus {
 <script>
 	loadSchedules(235);
 	loadSchedules(457);
+	loadSchedules(486);
+	loadSchedules(487);
+	loadSchedules(154);
+	loadSchedules(138);
+	loadSchedules(164);
+	loadSchedules(241);
     // Function to fetch and display the current and next schedules
     async function loadSchedules(headchannelid) {
         const apiUrl = 'https://contenthub-api.eco.astro.com.my/channel/all.json';
