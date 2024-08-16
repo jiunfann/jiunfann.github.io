@@ -206,14 +206,14 @@ td:focus {
 <center><h2 style="color:#f1f1f1;">MYTV</h2></center>
 <center><table style="width:100%">
     <tr>
-	<td align="center"><a href="https://rtm-player.glueapi.io/latest/h/1" target="_blank" id="row4cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/395_144.png" alt="" width="tv1"></a><br>40</td>
-	<td align="center"><a href="https://rtm-player.glueapi.io/latest/h/2" target="_blank" id="row4cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/396_144.png" alt="" width="tv2"></a><br>41</td>
-    <td align="center"><a href="https://zazerconer.github.io/live-tv-malaysia-with-player/channel/media-prima/tv3/index.html" target="_blank" id="row4cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/106_144.png" alt="" width="tv3"></a><br>42</td>
+	<td align="center"><a href="https://rtm-player.glueapi.io/latest/h/1" target="_blank" id="row4cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/395_144.png" alt="" width="tv1"></a><br>40<div id="schedule-container-395"></td>
+	<td align="center"><a href="https://rtm-player.glueapi.io/latest/h/2" target="_blank" id="row4cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/396_144.png" alt="" width="tv2"></a><br>41<div id="schedule-container-396"></td>
+    <td align="center"><a href="https://zazerconer.github.io/live-tv-malaysia-with-player/channel/media-prima/tv3/index.html" target="_blank" id="row4cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/106_144.png" alt="" width="tv3"></a><br>42<div id="schedule-container-106"></td>
     </tr>
 	<tr>
-	<td align="center"><a href="https://wakacha.github.io/live/tv8.html" target="_blank" id="row5cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/115_144.png" alt="8tv"></a><br>50</td>
-	<td align="center"><a href="https://wakacha.github.io/live/tv9.html" target="_blank" id="row5cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/48_144.png" alt="" width="tv9"></a><br>51</td>
-    <td align="center"><a href="https://rtm-player.glueapi.io/latest/h/3" target="_blank" id="row5cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/467_144.png" alt="" width="OKEY"></a><br>52</td>
+	<td align="center"><a href="https://wakacha.github.io/live/tv8.html" target="_blank" id="row5cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/115_144.png" alt="8tv"></a><br>50<div id="schedule-container-115"></td>
+	<td align="center"><a href="https://wakacha.github.io/live/tv9.html" target="_blank" id="row5cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/48_144.png" alt="" width="tv9"></a><br>51<div id="schedule-container-48"></td>
+    <td align="center"><a href="https://rtm-player.glueapi.io/latest/h/3" target="_blank" id="row5cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/467_144.png" alt="" width="OKEY"></a><br>52<div id="schedule-container-467"></td>
 	</tr>
 </table></center>
 <br>
@@ -376,7 +376,8 @@ td:focus {
             const response = await fetch(apiUrl);
             const data = await response.json();
 			
-			let stringArray = ['235','457','486','487','154','138','164','241','236','466','313','194','456','474'];
+			let stringArray = ['235','457','486','487','154','138','164','241','236','466','313','194','456','474',
+							   '395','396','106','115','48','467'];
             
             const now = new Date();
 
