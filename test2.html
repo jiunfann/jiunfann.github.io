@@ -409,16 +409,10 @@ td:focus {
                     currentProgramElement.className = 'program';
                     currentProgramElement.innerHTML = `${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
 
-                    channelElement.appendChild(currentProgramElement);
-
                     if (nextProgram) {
-                        const nextProgramElement = document.createElement('div');
-                        nextProgramElement.className = 'program';
-                        nextProgramElement.innerHTML = ` ${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
-
-                        channelElement.appendChild(nextProgramElement);
+                        currentProgramElement.innerHTML = `<br>${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
                     }
-
+					channelElement.appendChild(currentProgramElement);
                     scheduleContainer.appendChild(channelElement);
                 }
             });
