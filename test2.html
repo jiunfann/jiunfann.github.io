@@ -176,7 +176,7 @@ td:focus {
 <center><table style="width:100%">
     <tr>
     <td align="center"><a href="https://astro.webhop.me/arena.html" target="_blank" id="row0cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a><br>00<div id="schedule-container-235"></div></td>
-    <td align="center"><a href="https://astro.webhop.me/arena2.html" target="_blank" id="row0cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a><br>01</td>
+    <td align="center"><a href="https://astro.webhop.me/arena2.html" target="_blank" id="row0cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a><br>01<div id="schedule-container-457"></td>
 	<td align="center"><a href="https://mytvmalaysia.site/arenabola1.html" target="_blank" id="row0cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/486_144.png" alt="bola"></a><br>02</td>	
 	<td align="center"><a href="https://mytvmalaysia.site/arenabola2.html" target="_blank" id="row0cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/487_144.png" alt="bola2"></a><br>03</td>	
 	</tr>
@@ -368,6 +368,7 @@ td:focus {
 </script>
 <script>
 	loadSchedules(235);
+	loadSchedules(457);
     // Function to fetch and display the current and next schedules
     async function loadSchedules(headchannelid) {
         const apiUrl = 'https://contenthub-api.eco.astro.com.my/channel/all.json';
