@@ -225,7 +225,7 @@ td:focus {
 	<td align="center"><a href="https://astro.webhop.me/iqiyi.html" target="_blank" id="row6cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/355_144.png" alt="iqiyi"></a><br>60<div id="schedule-container-355"></td>
 	<td align="center"><a href="https://astro.webhop.me/tvbclassic.html" target="_blank" id="row6cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/425_144.png" alt="tvbclassic"></a><br>61<div id="schedule-container-425"></td>
 	<td align="center"><a href="https://imanawesome.github.io/web-tv/309.html" target="_blank" id="row6cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/134_144.png" width="144" height="80" alt="Suria" width="100"></a><br>62<div id="schedule-container-134"></td>
-	<td align="center"><a href="https://jiunfann.github.io/sgch8.html" target="_blank" id="row6cell3"><img src="https://poster.starhubgo.com/Linear_channels2/103_1920x1080_HTV.png" alt="channel 8" width="144" height="80"></a><br>63</td>    
+	<td align="center"><a href="https://jiunfann.github.io/sgch8.html" target="_blank" id="row6cell3"><img src="https://poster.starhubgo.com/Linear_channels2/103_1920x1080_HTV.png" alt="channel 8" width="144" height="80"></a><br>63<div id="schedule-container-sgch8"></td>    
     </tr>
     <tr>
     <td align="center"><a href="https://imanawesome.github.io/web-tv/320.html" target="_blank" id="row7cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/384_144.png" alt="tvbs" width="100"></a><br>70<div id="schedule-container-384"></td>
@@ -369,6 +369,7 @@ td:focus {
 </script>
 <script>
 	loadSchedules();
+	loadMeWatchSchedules();
     // Function to fetch and display the current and next schedules
     async function loadSchedules() {
         const apiUrl = 'https://contenthub-api.eco.astro.com.my/channel/all.json';
@@ -430,7 +431,66 @@ td:focus {
             console.error('Failed to load schedules:', error);
         }
     }
+	 async function loadMeWatchSchedules() {
+        // Get current date in YYYY-MM-DD format
+        const today = new Date();
+        const yesterday = new Date(today);
+        yesterday.setDate(today.getDate() - 1);
+		const paraYesterday=yesterday.toISOString().split('T')[0]
 
+        // URL with the current date
+        const apiUrl = `https://cdn.mewatch.sg/api/schedules?channels=97104&date=${paraYesterday}&duration=24&ff=idp%2Cldp%2Crpt%2Ccd&hour=16&intersect=true&lang=en&segments=all`;
+		console.log(apiUrl);
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            const scheduleContainer = document.getElementById('schedule-container-sgch8');
+            const now = new Date();
+
+            data.forEach(schedule => {
+				
+                const programs = schedule.schedules;
+                
+                let currentProgram = null;
+                let nextProgram = null;
+				var currDateTimeInUtc = '';
+				var nextDateTimeInUtc = '';
+
+                for (let i = 0; i < programs.length; i++) {
+                    const program = programs[i];
+					
+                    const start = new Date(program.startDate);
+                    const end = new Date(program.endDate);
+                    if (now >= start && now <= end) {
+                        currentProgram = program;
+						console.log(program.item.title);
+                        if (i + 1 < programs.length) {
+                            nextProgram = programs[i + 1];
+							console.log(nextProgram.item.title);
+                        }
+                        break;
+                    }
+                }
+
+                if (currentProgram) {
+									
+                    const channelElement = document.createElement('div');
+                    const currentProgramElement = document.createElement('div');
+                    currentProgramElement.className = 'program';
+                    currentProgramElement.innerHTML = `${formatTime(new Date(currentProgram.startDate))} : ${currentProgram.item.title}`;
+
+                    if (nextProgram) {
+                        currentProgramElement.innerHTML += `<br>${formatTime(new Date(nextProgram.startDate))} : ${nextProgram.item.title}`;
+                    }
+					channelElement.appendChild(currentProgramElement);
+                    scheduleContainer.appendChild(channelElement);
+                }
+            });
+        } catch (error) {
+            console.error('Failed to load schedules:', error);
+        }
+    }
     // Function to parse the UTC time string
     function parseTime(utcString) {
         return new Date(utcString + 'Z'); // Append 'Z' to ensure it is treated as UTC
