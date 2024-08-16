@@ -408,7 +408,7 @@ td:focus {
                 }
 
                 if (currentProgram && headchannelid==channelid) {
-
+                    const channelElement = document.createElement('div');
                     const currentProgramElement = document.createElement('div');
                     currentProgramElement.className = 'program';
                     currentProgramElement.innerHTML = `<div class="program-title">Current:</div> ${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
