@@ -368,69 +368,61 @@ td:focus {
 	});
 </script>
 <script>
-	loadSchedules(235);
-	loadSchedules(457);
-	loadSchedules(486);
-	loadSchedules(487);
-	loadSchedules(154);
-	loadSchedules(138);
-	loadSchedules(164);
-	loadSchedules(241);
-	
-	loadSchedules(236);
-	loadSchedules(466);
-	loadSchedules(313);
-	loadSchedules(194);
-	loadSchedules(456);
-	loadSchedules(474);
+	loadSchedules();
     // Function to fetch and display the current and next schedules
-    async function loadSchedules(headchannelid) {
+    async function loadSchedules() {
         const apiUrl = 'https://contenthub-api.eco.astro.com.my/channel/all.json';
         try {
             const response = await fetch(apiUrl);
             const data = await response.json();
-
-            const scheduleContainer = document.getElementById('schedule-container-'+headchannelid);
+			
+			let stringArray = ['235','457','486','487','154','138','164','241','236','466','313','194','456','474'];
+            
             const now = new Date();
 
-            data.response.forEach(channel => {
-				const channelid = channel.id;
-                const channelName = channel.title;
-                const programs = channel.currentSchedule;
-				var currDateTimeInUtc = '';
-				var nextDateTimeInUtc = '';
+			for(let i=0; i <= stringArray.length; i++){
+				var headchannelid = stringArray[i];
 				
-                let currentProgram = null;
-                let nextProgram = null;
-
-                for (let i = 0; i < programs.length; i++) {
-                    const program = programs[i];
-                    const start = parseTime(program.datetimeInUtc);
-                    currDateTimeInUtc = start;
+				const scheduleContainer = document.getElementById('schedule-container-'+headchannelid);
+				data.response.forEach(channel => {
+					const channelid = channel.id;
+					const channelName = channel.title;
+					const programs = channel.currentSchedule;
+					var currDateTimeInUtc = '';
+					var nextDateTimeInUtc = '';
 					
-                    if (now >= start) {
-                        currentProgram = program;
-                        if (i + 1 < programs.length) {
-                            nextProgram = programs[i + 1];
-							nextDateTimeInUtc = parseTime(nextProgram.datetimeInUtc);
-                        }
-                        break;
-                    }
-                }
+					let currentProgram = null;
+					let nextProgram = null;
 
-                if (currentProgram && headchannelid==channelid) {
-                    const channelElement = document.createElement('div');
-                    const currentProgramElement = document.createElement('div');
-                    currentProgramElement.className = 'program';
-                    currentProgramElement.innerHTML = `${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
+					for (let i = 0; i < programs.length; i++) {
+						const program = programs[i];
+						const start = parseTime(program.datetimeInUtc);
+						currDateTimeInUtc = start;
+						
+						if (now >= start) {
+							currentProgram = program;
+							if (i + 1 < programs.length) {
+								nextProgram = programs[i + 1];
+								nextDateTimeInUtc = parseTime(nextProgram.datetimeInUtc);
+							}
+							break;
+						}
+					}
 
-                    if (nextProgram) {
-                        currentProgramElement.innerHTML += `<br>${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
-                    }
-					channelElement.appendChild(currentProgramElement);
-                    scheduleContainer.appendChild(channelElement);
-                }
-            });
+					if (currentProgram && headchannelid==channelid) {
+						const channelElement = document.createElement('div');
+						const currentProgramElement = document.createElement('div');
+						currentProgramElement.className = 'program';
+						currentProgramElement.innerHTML = `${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
+
+						if (nextProgram) {
+							currentProgramElement.innerHTML += `<br>${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
+						}
+						channelElement.appendChild(currentProgramElement);
+						scheduleContainer.appendChild(channelElement);
+					}
+				});
+			}
         } catch (error) {
             console.error('Failed to load schedules:', error);
         }
