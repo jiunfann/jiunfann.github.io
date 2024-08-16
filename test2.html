@@ -83,7 +83,15 @@ body {
 * {
   box-sizing: border-box;
 }
-
+.program {
+	margin-top: 10px;
+	font-size: 0.9em;
+	text-align: left;
+}
+.program-title {
+	font-weight: bold;
+	text-align: left;
+}
 body {
   font-family: Arial, Helvetica, sans-serif;
 }
@@ -293,7 +301,7 @@ td:focus {
 
 	// Initial selection
 	rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
-	document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
+	//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 	
 	document.addEventListener('keydown', (event) => {
 	
@@ -302,15 +310,15 @@ td:focus {
 		switch (event.key) {
 			case 'ArrowRight' || 39:
 				currentCellIndex = (currentCellIndex + 1) % rows[currentRowIndex].children.length;
-				document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
+				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 				break;
 			case 'ArrowLeft' || 37:
 				currentCellIndex = (currentCellIndex - 1 + rows[currentRowIndex].children.length) % rows[currentRowIndex].children.length;
-				document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
+				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 				break;
 			case 'ArrowDown' || 40:
 				currentRowIndex = (currentRowIndex + 1) % rows.length;
-				document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
+				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 				break;
 			case 'ArrowUp' || 38:
 				if (currentRowIndex === 0) {
@@ -318,11 +326,11 @@ td:focus {
 				} else {
 					currentRowIndex = (currentRowIndex - 1 + rows.length) % rows.length;
 				}
-				document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
+				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 				break;
 			case 'Enter' || 13:
 				const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).href;
-				document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
+				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 				window.open(url,'_blank');
 				break;
 			default:
