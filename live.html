@@ -435,10 +435,12 @@ td:focus {
 	 async function loadMeWatchSchedules() {
         // Get current date in YYYY-MM-DD format
         const today = new Date();
-		today=today.toLocaleDateString();
         const yesterday = new Date(today);
         yesterday.setDate(today.getDate() - 1);
-		const paraYesterday=yesterday.toISOString().split('T')[0]
+		const year = yesterday.getFullYear();
+		const month = String(yesterday.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+		const day = String(yesterday.getDate()).padStart(2, '0');
+		const paraYesterday= `${year}-${month}-${day}`;
 
         // URL with the current date
         const apiUrl = `https://cdn.mewatch.sg/api/schedules?channels=97104&date=${paraYesterday}&duration=24&ff=idp%2Cldp%2Crpt%2Ccd&hour=16&intersect=true&lang=en&segments=all`;
@@ -564,8 +566,10 @@ td:focus {
 	
 	function getTodayDate() {
         const today = new Date();
-		today=today.toLocaleDateString();
-        return today.toISOString().split('T')[0];
+		const year = today.getFullYear();
+		const month = String(today.getMonth() + 1).padStart(2, '0'); // Months are zero-based
+		const day = String(today.getDate()).padStart(2, '0');
+        return `${year}-${month}-${day}`;
     }
 </script>
 </body>
