@@ -188,7 +188,7 @@ td:focus {
 	<td align="center"><a href="https://astro.webhop.me/assp4.html" target="_blank" id="row1cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/241_144.png" alt="SuperSport4"></a><br>13<div id="schedule-container-241"></td>	
 	</tr>
 	<tr>
-	<td align="center"><a href="https://rtm-player.glueapi.io/latest/h/4" target="_blank" id="row2cell0"><img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sukan_RTM_1_April.png" width="144" height="60" alt="rtmsukan"></a><br>20</td>
+	<td align="center"><a href="https://rtm-player.glueapi.io/latest/h/4" target="_blank" id="row2cell0"><img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sukan_RTM_1_April.png" width="144" height="60" alt="rtmsukan"></a><br>20<div id="schedule-container-sukanrtm"></td>
 	<td align="center"><a href="https://astro.webhop.me/bein1.html" target="_blank" id="row2cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/236_144.png" alt="beIN Sports1"></a><br>21<div id="schedule-container-236"></td>
     <td align="center"><a href="https://astro.webhop.me/bein2.html" target="_blank" id="row2cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/466_144.png" alt="beIN Sports2"></a><br>22<div id="schedule-container-466"></td>
     <td align="center"><a href="https://astro.webhop.me/bein3.html" target="_blank" id="row2cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/313_144.png" alt="beIN Sports3"></a><br>23<div id="schedule-container-313"></td>
@@ -370,6 +370,7 @@ td:focus {
 <script>
 	loadSchedules();
 	loadMeWatchSchedules();
+	loadRTMSchedules();
     // Function to fetch and display the current and next schedules
     async function loadSchedules() {
         const apiUrl = 'https://contenthub-api.eco.astro.com.my/channel/all.json';
@@ -491,6 +492,65 @@ td:focus {
             console.error('Failed to load schedules:', error);
         }
     }
+	async function loadRTMSchedules() {
+        // Get today's date
+        const today = getTodayDate();
+
+        // URL with today's date
+        const apiUrl = `https://rtm.glueapi.io/v3/epg/4/ChannelSchedule?dateStart=${today}&dateEnd=${today}&timezone=+08:00&embed=author,program`;
+
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            const scheduleContainer = document.getElementById('schedule-container-sukanrtm');
+            const now = new Date();
+			console.log(data.schedule);
+			const programs=data.schedule;
+            for (let i = 0; i < programs.length; i++) {
+                	
+				var curStartTime = '';
+				var curTitle = '';
+				var nextStartTime= '';
+				var nextTitle = '';
+				
+				var booContinue = false;
+     
+				const program = programs[i];
+				
+				const start = new Date(program.dateTimeStart);
+				const end = new Date(program.dateTimeEnd);
+
+				if (now >= start && now <= end) {
+					booContinue = true;
+					curStartTime = program.dateTimeStart;
+					curTitle = program.programTitle;
+					if (i + 1 < programs.length) {
+						nextProgram = programs[i + 1];
+						nextStartTime = nextProgram.dateTimeStart;
+						nextTitle = nextProgram.programTitle;
+					}
+					
+				}
+				if (booContinue){
+                    const channelElement = document.createElement('div');
+                    const currentProgramElement = document.createElement('div');
+                    currentProgramElement.className = 'program';
+                    currentProgramElement.innerHTML = `${formatTime(new Date(curStartTime))} : ${curTitle}`;              
+
+                    if (nextProgram) {
+                        currentProgramElement.innerHTML += `<br>${formatTime(new Date(nextStartTime))} : ${nextTitle}`;
+                    }
+					channelElement.appendChild(currentProgramElement);
+                    scheduleContainer.appendChild(channelElement);
+					break;
+				}
+                
+            }
+        } catch (error) {
+            console.error('Failed to load schedules:', error);
+        }
+    }
     // Function to parse the UTC time string
     function parseTime(utcString) {
         return new Date(utcString + 'Z'); // Append 'Z' to ensure it is treated as UTC
@@ -499,6 +559,11 @@ td:focus {
     // Function to format the time for display
     function formatTime(date) {
         return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
+	
+	function getTodayDate() {
+        const today = new Date();
+        return today.toISOString().split('T')[0];
     }
 </script>
 </body>
