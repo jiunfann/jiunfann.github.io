@@ -410,7 +410,7 @@ td:focus {
                     currentProgramElement.innerHTML = `${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
 
                     if (nextProgram) {
-                        currentProgramElement.innerHTML = `<br>${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
+                        currentProgramElement.innerHTML += `<br>${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
                     }
 					channelElement.appendChild(currentProgramElement);
                     scheduleContainer.appendChild(channelElement);
