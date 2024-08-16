@@ -171,7 +171,7 @@ td:focus {
 <center><h2 style="color:#f1f1f1;">Sports</h2></center>
 <center><table style="width:100%">
     <tr>
-    <td align="center"><a href="https://astro.webhop.me/arena.html" target="_blank" id="row0cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a><br>00</td>
+    <td align="center"><a href="https://astro.webhop.me/arena.html" target="_blank" id="row0cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a><br>00<div id="schedule-container-235"></div></td>
     <td align="center"><a href="https://astro.webhop.me/arena2.html" target="_blank" id="row0cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a><br>01</td>
 	<td align="center"><a href="https://mytvmalaysia.site/arenabola1.html" target="_blank" id="row0cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/486_144.png" alt="bola"></a><br>02</td>	
 	<td align="center"><a href="https://mytvmalaysia.site/arenabola2.html" target="_blank" id="row0cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/487_144.png" alt="bola2"></a><br>03</td>	
@@ -351,14 +351,90 @@ td:focus {
 						tempRow = channelNumber.substring(0,2);
 						tempCell = channelNumber.substring(2,channelNumber.length);
 					}
+					try{
 					const url = document.getElementById('row'+tempRow+'cell'+tempCell).href;
 					window.open(url,'_blank');
+					}catch(error){console.log(error);}
 				}
 				channelDisplay.style.display = 'none';
 				channelNumber = ''; // Reset the channel number
 			}, 2000); // Adjust the timeout duration as needed
 		}
 	});
+</script>
+<script>
+	loadSchedules(235);
+    // Function to fetch and display the current and next schedules
+    async function loadSchedules(headchannelid) {
+        const apiUrl = 'https://contenthub-api.eco.astro.com.my/channel/all.json';
+        try {
+            const response = await fetch(apiUrl);
+            const data = await response.json();
+
+            const scheduleContainer = document.getElementById('schedule-container-'+headchannelid);
+            const now = new Date();
+
+            data.response.forEach(channel => {
+				const channelid = channel.id;
+                const channelName = channel.title;
+                const programs = channel.currentSchedule;
+				var currDateTimeInUtc = '';
+				var nextDateTimeInUtc = '';
+				
+                let currentProgram = null;
+                let nextProgram = null;
+
+                for (let i = 0; i < programs.length; i++) {
+                    const program = programs[i];
+                    const start = parseTime(program.datetimeInUtc);
+                    currDateTimeInUtc = start;
+					
+                    if (now >= start) {
+                        currentProgram = program;
+                        if (i + 1 < programs.length) {
+                            nextProgram = programs[i + 1];
+							nextDateTimeInUtc = parseTime(nextProgram.datetimeInUtc);
+                        }
+                        break;
+                    }
+                }
+
+                if (currentProgram && headchannelid==channelid) {
+                    const channelElement = document.createElement('div');
+                    channelElement.className = 'channel';
+                    channelElement.innerHTML = `<h3>${channelName}</h3>`;
+
+                    const currentProgramElement = document.createElement('div');
+                    currentProgramElement.className = 'program';
+                    currentProgramElement.innerHTML = `<div class="program-title">Current:</div> ${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
+
+                    channelElement.appendChild(currentProgramElement);
+
+                    if (nextProgram) {
+                        const nextProgramElement = document.createElement('div');
+                        nextProgramElement.className = 'program';
+                        nextProgramElement.innerHTML = `<div class="program-title">Next:</div> ${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
+
+                        channelElement.appendChild(nextProgramElement);
+                    }
+
+                    scheduleContainer.appendChild(channelElement);
+                }
+            });
+        } catch (error) {
+            console.error('Failed to load schedules:', error);
+        }
+    }
+
+    // Function to parse the UTC time string
+    function parseTime(utcString) {
+        return new Date(utcString + 'Z'); // Append 'Z' to ensure it is treated as UTC
+    }
+
+    // Function to format the time for display
+    function formatTime(date) {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+    }
 </script>
 </body>
 </html>
