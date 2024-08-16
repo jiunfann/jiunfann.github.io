@@ -435,6 +435,7 @@ td:focus {
 	 async function loadMeWatchSchedules() {
         // Get current date in YYYY-MM-DD format
         const today = new Date();
+		today=today.toLocaleDateString();
         const yesterday = new Date(today);
         yesterday.setDate(today.getDate() - 1);
 		const paraYesterday=yesterday.toISOString().split('T')[0]
@@ -563,6 +564,7 @@ td:focus {
 	
 	function getTodayDate() {
         const today = new Date();
+		today=today.toLocaleDateString();
         return today.toISOString().split('T')[0];
     }
 </script>
