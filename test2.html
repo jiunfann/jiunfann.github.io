@@ -1,570 +1,94 @@
-<!DOCTYPE html>
-<html>
-<head>
-<title>Live</title>
-<body>
-
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<style>
-
-body {
-  background-color: #646464; #838996; background-image: url('');
-}
-#channel-display {
-    position: fixed;
-    top: 20px; /* Adjust to position where you want the channel number to appear */
-    right: 20px; /* Adjust to position where you want the channel number to appear */
-    padding: 10px;
-    font-size: 2em;
-    color: white;
-    background-color: rgba(0, 0, 0, 0.7); /* Semi-transparent background */
-    border-radius: 10px;
-    display: none; /* Initially hidden */
-}
-</style>
-<style>
-	<span> <! ---    ---  </span>
-* {box-sizing: border-box;}
-
-body { 
-  margin: 0;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-.header {
-  overflow: hidden;
-  background-color: #f1f1f2;
-  padding: 5px 5px;
-}
-
-.header a {
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 12px;
-  text-decoration: none;
-  font-size: 18px; 
-  line-height: 25px;
-  border-radius: 4px;
-}
-
-.header a.logo {
-  font-size: 20px;
-  font-weight: bold;
-}
-
-.header a:hover {
-  background-color: #ddd;
-  color: black;
-}
-
-.header a.active {
-  background-color: dodgerblue;
-  color: white;
-}
-
-.header-right {
-  float: right;
-}
-
-@media screen and (max-width: 500px) {
-  .header a {
-    float: none;
-    display: block;
-    text-align: left;
+<!DOCTYPE html><html><head>
+<meta name='viewport' content='width=device-width, initial-scale=1.0' />
+<meta name="referrer" content="no-referrer" />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.7/shaka-player.ui.js' crossorigin='anonymous'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.7/controls.css' crossorigin='anonymous' />
+</head><body><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
+<body bgcolor='black' style='margin:0' oncontextmenu='return false' onkeydown='return false' onmousedown='return false'><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
+<center> 
+<div data-shaka-player-container id="data-shaka-player-container" style='width: 100%; height: 100%'>
+<video data-shaka-player autoplay id='video' style='width:100%;height:100%;'></video></div>
+<script> 
+async function init() { 
+var video = document.getElementById('video');  
+var ui = video['ui']; 
+var controls = ui.getControls(); 
+var player = controls.getPlayer();
+player.configure({
+  drm: {
+	clearKeys: {
+	  // 'key-id-in-hex': 'key-in-hex',
+		'01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8'
+	}
   }
-  
-  .header-right {
-    float: none;
-  }
-}
-.href {
-}
-* {
-  box-sizing: border-box;
-}
-.program {
-	font-size: 0.9em;
-	text-align: left;
-	padding: 20px;
-}
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
+  abr: {
+		enabled: true,  // Enable ABR but start with the preferred resolution
+		defaultBandwidthEstimate: 1000000 // Adjust this if needed
+	}
+});
+// Event listener to select the desired resolution after the manifest is loaded
+player.addEventListener('trackschanged', function() {
+    const tracks = player.getVariantTracks();
+    
+    // Find the track with the desired resolution (540p in this case)
+    const preferredTrack = tracks.find(track => track.height === 540);
 
+    if (preferredTrack) {
+        player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
+    }
+});
+player.setTextTrackVisibility(true);
+window.player = player; 
+window.ui = ui; 
+player.addEventListener('error', onPlayerErrorEvent); 
+player.addEventListener('buffering', function(event) {
+if (event.buffering) {
+	// Buffering started
+	console.log('Buffering started...');
+	bufferingStartTime = Date.now();
 
-}
-
-/* Create two columns/boxes that floats next to each other */
-nav {
-  float: left;
-  width: 30%;
-  height: 300px; /* only for demonstration, should be removed */
-  background: #ccc;
-  padding: 20px;
-}
-
-/* Style the list inside the menu */
-nav ul {
-  list-style-type: none;
-  padding: 0;
-}
-
-article {
-  float: left;
-  padding: 20px;
-  width: 70%;
-  background-color: #f1f1f1;
-  height: 300px; /* only for demonstration, should be removed */
-}
-
-/* Clear floats after the columns */
-section::after {
-  content: "";
-  display: table;
-  clear: both;
-}
-
-/* Style the footer */
-footer {
-  background-color: #f1f1f1;
-  padding: 10px;
-  text-align: center;
-  color: black;
-  font-weight: bold;
-}
-
-/* Responsive layout - makes the two columns/boxes stack on top of each other instead of next to each other, on small screens */
-@media (max-width: 600px) {
-  nav, article {
-    width: 100%;
-    height: auto;
-  }
-}
-</style>
-	
-<style>
-th, td {
-  border-style:outset;
-  border-color: #a67b5b;#696969
-  text-align: center;
-  vertical-align: middle;
-  color: #ffffff;
-}
-td:hover {
-    color: #fff;
-    background: #CA293E;
-}
-td:focus {
-    background: #f44;
-}
-.selected {
-	color: #fff;
-    background: #CA293E;
-}
-</style>
-<center>
-</center>
-<body>
-<div id="channel-display"></div>
-<br>
-<br>
-<br>
-<br>
-	
-
-<center><h2 style="color:#f1f1f1;">Sports</h2></center>
-<center><table style="width:100%">
-    <tr>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/arena.html" target="_blank" id="row0cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/235_144.png" alt="Arena"></a><br>00<div id="schedule-container-235"></div></td>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/arena2.html" target="_blank" id="row0cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/457_144.png" alt="Arena2"></a><br>01<div id="schedule-container-457"></td>
-	<td align="center" style="width:25%"><a href="https://mytvmalaysia.site/arenabola1.html" target="_blank" id="row0cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/486_144.png" alt="bola"></a><br>02<div id="schedule-container-486"></td>	
-	<td align="center" style="width:25%"><a href="https://mytvmalaysia.site/arenabola2.html" target="_blank" id="row0cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/487_144.png" alt="bola2"></a><br>03<div id="schedule-container-487"></td>	
-	</tr>
-	<tr>
-    <td align="center" style="width:25%"><a href="https://myastro.click/assp1.html" target="_blank" id="row1cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/154_144.png" alt="SuperSport"></a><br>10<div id="schedule-container-154"></td>
-    <td align="center" style="width:25%"><a href="https://myastro.click/assp2.html" target="_blank" id="row1cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/138_144.png" alt="SuperSport2"></a><br>11<div id="schedule-container-138"></td>
-	<td align="center" style="width:25%"><a href="https://myastro.click/assp3.html" target="_blank" id="row1cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/164_144.png" alt="SuperSport3"></a><br>12<div id="schedule-container-164"></td>	
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/assp4.html" target="_blank" id="row1cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/241_144.png" alt="SuperSport4"></a><br>13<div id="schedule-container-241"></td>	
-	</tr>
-	<tr>
-	<td align="center" style="width:25%"><a href="https://rtm-player.glueapi.io/latest/h/4" target="_blank" id="row2cell0"><img src="https://upload.wikimedia.org/wikipedia/en/b/b2/Sukan_RTM_1_April.png" width="144" height="60" alt="rtmsukan"></a><br>20<div id="schedule-container-sukanrtm"></td>
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/bein1.html" target="_blank" id="row2cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/236_144.png" alt="beIN Sports1"></a><br>21<div id="schedule-container-236"></td>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/bein2.html" target="_blank" id="row2cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/466_144.png" alt="beIN Sports2"></a><br>22<div id="schedule-container-466"></td>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/bein3.html" target="_blank" id="row2cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/313_144.png" alt="beIN Sports3"></a><br>23<div id="schedule-container-313"></td>
-	</tr>
-	<tr>
-	<td align="center" style="width:25%"><a href="https://jiunfann.github.io/mutv.html" target="_blank" id="row3cell0"><img src="https://upload.wikimedia.org/wikipedia/en/thumb/b/b8/MUTV_logo.png/200px-MUTV_logo.png" width="144" height="60" alt="mutv"></a><br>30</td>
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/wwe.html" target="_blank" id="row3cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/194_144.png" alt="wwe"></a><br>31<div id="schedule-container-194"></td>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/spotv.html" target="_blank" id="row3cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/456_144.png" alt="spotv"></a><br>32<div id="schedule-container-456"></td>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/spotv2.html" target="_blank" id="row3cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/474_144.png" alt="spotv2"></a><br>33<div id="schedule-container-474"></td>
-	</tr>
-</table></center>
-<br>
-<br>
-<br>  
-<center><h2 style="color:#f1f1f1;">MYTV</h2></center>
-<center><table style="width:100%">
-    <tr>
-	<td align="center" style="width:33%"><a href="https://rtm-player.glueapi.io/latest/h/1" target="_blank" id="row4cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/395_144.png" alt="" width="tv1"></a><br>40<div id="schedule-container-395"></td>
-	<td align="center" style="width:33%"><a href="https://rtm-player.glueapi.io/latest/h/2" target="_blank" id="row4cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/396_144.png" alt="" width="tv2"></a><br>41<div id="schedule-container-396"></td>
-    <td align="center" style="width:33%"><a href="https://zazerconer.github.io/live-tv-malaysia-with-player/channel/media-prima/tv3/index.html" target="_blank" id="row4cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/106_144.png" alt="" width="tv3"></a><br>42<div id="schedule-container-106"></td>
-    </tr>
-	<tr>
-	<td align="center" style="width:33%"><a href="https://wakacha.github.io/live/tv8.html" target="_blank" id="row5cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/115_144.png" alt="8tv"></a><br>50<div id="schedule-container-115"></td>
-	<td align="center" style="width:33%"><a href="https://wakacha.github.io/live/tv9.html" target="_blank" id="row5cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/48_144.png" alt="" width="tv9"></a><br>51<div id="schedule-container-48"></td>
-    <td align="center" style="width:33%"><a href="https://rtm-player.glueapi.io/latest/h/3" target="_blank" id="row5cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/467_144.png" alt="" width="OKEY"></a><br>52<div id="schedule-container-467"></td>
-	</tr>
-</table></center>
-<br>
-<br>
-<br>
-<center><h2 style="color:#f1f1f1;">Chinese</h2></center>
-<center><table style="width:100%">
-    <tr>
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/iqiyi.html" target="_blank" id="row6cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/355_144.png" alt="iqiyi"></a><br>60<div id="schedule-container-355"></td>
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/tvbclassic.html" target="_blank" id="row6cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/425_144.png" alt="tvbclassic"></a><br>61<div id="schedule-container-425"></td>
-	<td align="center" style="width:25%"><a href="https://imanawesome.github.io/web-tv/309.html" target="_blank" id="row6cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/134_144.png" width="144" height="80" alt="Suria" width="100"></a><br>62<div id="schedule-container-134"></td>
-	<td align="center" style="width:25%"><a href="https://jiunfann.github.io/sgch8.html" target="_blank" id="row6cell3"><img src="https://poster.starhubgo.com/Linear_channels2/103_1920x1080_HTV.png" alt="channel 8" width="144" height="80"></a><br>63<div id="schedule-container-sgch8"></td>    
-    </tr>
-    <tr>
-    <td align="center" style="width:25%"><a href="https://imanawesome.github.io/web-tv/320.html" target="_blank" id="row7cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/384_144.png" alt="tvbs" width="100"></a><br>70<div id="schedule-container-384"></td>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/ccm.html" target="_blank" id="row7cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/187_144.png" alt="CCM"></a><br>71<div id="schedule-container-187"></td>
-	<td align="center" style="width:25%"><a href="https://jiunfann.github.io/aec.html" target="_blank" id="row7cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/182_144.png" alt="aec"></a><br>72<div id="schedule-container-182"></td> 
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/huaheidai.html" target="_blank" id="row7cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/162_144.png" alt="huanhee"></a><br>73<div id="schedule-container-162"></td>
-    </tr>
-	<tr>
-    <td align="center" style="width:25%"><a href="https://imanawesome.github.io/web-tv/310.html" target="_blank" id="row8cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/203_144.png" alt="tvbjade" width="100"></a><br>80<div id="schedule-container-203"></td>
-    <td align="center" style="width:25%"><a href="https://imanawesome.github.io/web-tv/316.html" target="_blank" id="row8cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/424_144.png" alt="cti"></a><br>81<div id="schedule-container-424"></td>
-	<td align="center" style="width:25%"><a href="https://imanawesome.github.io/web-tv/317.html" target="_blank" id="row8cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/427_144.png" alt="tvbentertain"></a><br>82<div id="schedule-container-427"></td> 
-	<td align="center" style="width:25%"><a href="https://imanawesome.github.io/web-tv/319.html" target="_blank" id="row8cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/383_144.png" alt="xinghe"></a><br>83<div id="schedule-container-383"></td>
-    </tr>
-	<tr>
-    <td align="center"><a href="https://imanawesome.github.io/web-tv/325.html" target="_blank" id="row9cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/382_144.png" alt="phoenix" width="100"></a><br>90<div id="schedule-container-382"></td>
-    <td align="center"><a href="https://imanawesome.github.io/web-tv/326.html" target="_blank" id="row9cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/43_144.png" alt="phoenixinfo"></a><br>91<div id="schedule-container-43"></td>
-	<td align="center"><a href="https://imanawesome.github.io/web-tv/335.html" target="_blank" id="row9cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/385_144.png" alt="cctv4"></a><br>92<div id="schedule-container-385"></td> 
-    </tr>
-</table></center>
-<br>
-<br>
-<br>
-<center><h2 style="color:#f1f1f1;">Movie</h2></center>
-<center><table style="width:100%">
-	<tr>
-    <td align="center" style="width:33%"><a href="https://astro.webhop.me/hbo.html" target="_blank" id="row10cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/143_144.png" alt="hbo" width="100"></a><br>100<div id="schedule-container-143"></td>
-    <td align="center" style="width:33%"><a href="https://astro.webhop.me/hbofamily.html" target="_blank" id="row10cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/450_144.png" alt="hbofamily"></a><br>101<div id="schedule-container-450"></td> 
-	<td align="center" style="width:33%"><a href="https://astro.webhop.me/hbohits.html" target="_blank" id="row10cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/449_144.png" alt="xinghe"></a><br>102<div id="schedule-container-449"></td>
-    </tr>
-	<tr>
-    <td align="center" style="width:33%"><a href="https://astro.webhop.me/cinem.html" target="_blank" id="row11cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/337_144.png" alt="cinemax"></a><br>110<div id="schedule-container-337"></td>
-	<td align="center" style="width:33%"><a href="https://astro.webhop.me/tvn.html" target="_blank" id="row11cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/190_144.png" alt="tvn"></a><br>112<div id="schedule-container-190"></td>
-	<td align="center" style="width:33%"><a href="https://astro.webhop.me/tvnmovies.html" target="_blank" id="row11cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/274_144.png" alt="tvnmovies"></a><br>113<div id="schedule-container-274"></td> 
-    </tr>
-</table></center>
-<br>
-<br>
-<br>
-<center><h2 style="color:#f1f1f1;">Documentary</h2></center>
-<center><table style="width:100%">
-	<tr>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/discov.html" target="_blank" id="row12cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/376_144.png" alt="discovery" width="100"></a><br>120<div id="schedule-container-376"></td>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/discoasia.html"" target="_blank" id="row12cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/136_144.png" alt="discoasia"></a><br>121<div id="schedule-container-136"></td> 
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/history.html" target="_blank" id="row12cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/144_144.png" alt="xinghe"></a><br>122<div id="schedule-container-144"></td>
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/animpla.html" target="_blank" id="row12cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/377_144.png" alt="cinemax"></a><br>123<div id="schedule-container-377"></td>
-    </tr>
-</table></center>
-<br>
-<br>
-<br>
-<center><h2 style="color:#f1f1f1;">Kids</h2></center>
-<center><table style="width:100%">
-	<tr>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/dreamworks.html" target="_blank" id="row13cell0"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/485_144.png" alt="dreamworks" width="100"></a><br>130<div id="schedule-container-485"></td>
-    <td align="center" style="width:25%"><a href="https://astro.webhop.me/carnet.html"" target="_blank" id="row13cell1"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/371_144.png" alt="discoasia"></a><br>131<div id="schedule-container-371"></td> 
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/nicklo.html" target="_blank" id="row13cell2"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/370_144.png" alt="xinghe"></a><br>132<div id="schedule-container-370"></td>
-	<td align="center" style="width:25%"><a href="https://astro.webhop.me/nickjr.html" target="_blank" id="row13cell3"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/392_144.png" alt="cinemax"></a><br>133<div id="schedule-container-392"></td>
-    </tr>
-</table></center>
-<br><br><br>
-<br>
-<br>
-<br>
-<script>
-	const rows = document.querySelectorAll('table tr');
-	let channelNumber = '';
-	let inputTimeout;
-	let currentRowIndex = 0;
-	let currentCellIndex = 0;
-
-	// Initial selection
-	rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
-	//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
-	
-	document.addEventListener('keydown', (event) => {
-	
-		rows[currentRowIndex].children[currentCellIndex].classList.remove('selected');
-		
-		switch (event.key) {
-			case 'ArrowRight' || 39:
-				currentCellIndex = (currentCellIndex + 1) % rows[currentRowIndex].children.length;
-				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
-				break;
-			case 'ArrowLeft' || 37:
-				currentCellIndex = (currentCellIndex - 1 + rows[currentRowIndex].children.length) % rows[currentRowIndex].children.length;
-				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
-				break;
-			case 'ArrowDown' || 40:
-				currentRowIndex = (currentRowIndex + 1) % rows.length;
-				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
-				break;
-			case 'ArrowUp' || 38:
-				if (currentRowIndex === 0) {
-					currentCellIndex = 0;
-				} else {
-					currentRowIndex = (currentRowIndex - 1 + rows.length) % rows.length;
-				}
-				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
-				break;
-			case 'Enter' || 13:
-				const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).href;
-				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
-				window.open(url,'_blank');
-				break;
-			default:
-				break;
+	// Set a timeout for 3 seconds
+	bufferingTimeout = setTimeout(function() {
+		console.log('Buffering has lasted more than 3 seconds.');
+		// You can add additional logic here, like showing a message to the user
+		if (player) {
+			var currentSource = player.getAssetUri();
+			player.load(currentSource).then(() => {
+			video.play();
+		    console.log('Video reloaded!');
+			}).catch((error) => {
+				console.error('Error reloading video', error);
+			});
 		}
-		rows[currentRowIndex].children[currentCellIndex].classList.add('selected');
+	}, 3000);
 
-		if (event.key >= 0 && event.key <= 9) { // Check if the key is a number (0-9)
-			channelNumber += event.key;
-			console.log("Channel number so far: " + channelNumber);
-			const channelDisplay = document.getElementById('channel-display');
-			channelDisplay.innerText = channelNumber;
-			channelDisplay.style.display = 'block';
+} else {
+	// Buffering ended
+	console.log('Buffering ended.');
 
-			clearTimeout(inputTimeout);
-			inputTimeout = setTimeout(() => {
-				console.log("Timeout reached. Complete channel number: " + channelNumber);
-				var tempRow='0';
-				var tempCell='0';
-				console.log("channelNumber.length: " + channelNumber.length);
-				if (channelNumber.length>1){
-					if (channelNumber.length==2){
-						tempRow = channelNumber.substring(0,1);
-						tempCell = channelNumber.substring(1,channelNumber.length);
-					}else if (channelNumber.length==3){
-						tempRow = channelNumber.substring(0,2);
-						tempCell = channelNumber.substring(2,channelNumber.length);
-					}
-					try{
-					const url = document.getElementById('row'+tempRow+'cell'+tempCell).href;
-					window.open(url,'_blank');
-					}catch(error){console.log(error);}
-				}
-				channelDisplay.style.display = 'none';
-				channelNumber = ''; // Reset the channel number
-			}, 2000); // Adjust the timeout duration as needed
-		}
-	});
+	if (bufferingTimeout) {
+		clearTimeout(bufferingTimeout);
+	}
+
+	// Calculate the total buffering time
+	if (bufferingStartTime !== null) {
+		const bufferingDuration = Date.now() - bufferingStartTime;
+		console.log(`Buffering lasted ${bufferingDuration} ms.`);
+	}
+
+	// Reset the start time
+	bufferingStartTime = null;
+}
+});
+controls.addEventListener('error', onUIErrorEvent); 
+try{player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
+console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}
+}
+function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
+function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
+function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
+function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
+document.addEventListener('shaka-ui-loaded', init); 
+document.addEventListener('shaka-ui-load-failed', initFailed); 
 </script>
-<script>
-	loadSchedules();
-	loadMeWatchSchedules();
-	loadRTMSchedules();
-    // Function to fetch and display the current and next schedules
-    async function loadSchedules() {
-        const apiUrl = 'https://contenthub-api.eco.astro.com.my/channel/all.json';
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-			
-			let stringArray = ['235','457','486','487','154','138','164','241','236','466','313','194','456','474',
-							   '395','396','106','115','48','467','355','425','134','203','424','427','383','384','187',
-							   '182','382','43','385','162','143','450','449','337','190','274','376','136','144','377',
-							   '485','371','370','392'];
-            
-            const now = new Date();
-
-			for(let i=0; i <= stringArray.length; i++){
-				var headchannelid = stringArray[i];
-				
-				const scheduleContainer = document.getElementById('schedule-container-'+headchannelid);
-				data.response.forEach(channel => {
-					const channelid = channel.id;
-					const channelName = channel.title;
-					const programs = channel.currentSchedule;
-					var currDateTimeInUtc = '';
-					var nextDateTimeInUtc = '';
-					
-					let currentProgram = null;
-					let nextProgram = null;
-
-					for (let i = 0; i < programs.length; i++) {
-						const program = programs[i];
-						const start = parseTime(program.datetimeInUtc);
-						currDateTimeInUtc = start;
-						
-						if (now >= start) {
-							currentProgram = program;
-							if (i + 1 < programs.length) {
-								nextProgram = programs[i + 1];
-								nextDateTimeInUtc = parseTime(nextProgram.datetimeInUtc);
-							}
-							break;
-						}
-					}
-
-					if (currentProgram && headchannelid==channelid) {
-						const channelElement = document.createElement('div');
-						const currentProgramElement = document.createElement('div');
-						currentProgramElement.className = 'program';
-						currentProgramElement.innerHTML = `${formatTime(currDateTimeInUtc)} : ${currentProgram.title}`;
-
-						if (nextProgram) {
-							currentProgramElement.innerHTML += `<br>${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
-						}
-						channelElement.appendChild(currentProgramElement);
-						scheduleContainer.appendChild(channelElement);
-					}
-				});
-			}
-        } catch (error) {
-            console.error('Failed to load schedules:', error);
-        }
-    }
-	 async function loadMeWatchSchedules() {
-        // Get current date in YYYY-MM-DD format
-        const today = new Date();
-        const yesterday = new Date(today);
-        yesterday.setDate(today.getDate() - 1);
-		const paraYesterday=yesterday.toISOString().split('T')[0]
-
-        // URL with the current date
-        const apiUrl = `https://cdn.mewatch.sg/api/schedules?channels=97104&date=${paraYesterday}&duration=24&ff=idp%2Cldp%2Crpt%2Ccd&hour=16&intersect=true&lang=en&segments=all`;
-		console.log(apiUrl);
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-
-            const scheduleContainer = document.getElementById('schedule-container-sgch8');
-            const now = new Date();
-
-            data.forEach(schedule => {
-				
-                const programs = schedule.schedules;
-                
-                let currentProgram = null;
-                let nextProgram = null;
-				var currDateTimeInUtc = '';
-				var nextDateTimeInUtc = '';
-
-                for (let i = 0; i < programs.length; i++) {
-                    const program = programs[i];
-					
-                    const start = new Date(program.startDate);
-                    const end = new Date(program.endDate);
-                    if (now >= start && now <= end) {
-                        currentProgram = program;
-						console.log(program.item.title);
-                        if (i + 1 < programs.length) {
-                            nextProgram = programs[i + 1];
-							console.log(nextProgram.item.title);
-                        }
-                        break;
-                    }
-                }
-
-                if (currentProgram) {
-									
-                    const channelElement = document.createElement('div');
-                    const currentProgramElement = document.createElement('div');
-                    currentProgramElement.className = 'program';
-                    currentProgramElement.innerHTML = `${formatTime(new Date(currentProgram.startDate))} : ${currentProgram.item.title}`;
-
-                    if (nextProgram) {
-                        currentProgramElement.innerHTML += `<br>${formatTime(new Date(nextProgram.startDate))} : ${nextProgram.item.title}`;
-                    }
-					channelElement.appendChild(currentProgramElement);
-                    scheduleContainer.appendChild(channelElement);
-                }
-            });
-        } catch (error) {
-            console.error('Failed to load schedules:', error);
-        }
-    }
-	async function loadRTMSchedules() {
-        // Get today's date
-        const today = getTodayDate();
-
-        // URL with today's date
-        const apiUrl = `https://rtm.glueapi.io/v3/epg/4/ChannelSchedule?dateStart=${today}&dateEnd=${today}&timezone=+08:00&embed=author,program`;
-
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-
-            const scheduleContainer = document.getElementById('schedule-container-sukanrtm');
-            const now = new Date();
-			console.log(data.schedule);
-			const programs=data.schedule;
-            for (let i = 0; i < programs.length; i++) {
-                	
-				var curStartTime = '';
-				var curTitle = '';
-				var nextStartTime= '';
-				var nextTitle = '';
-				
-				var booContinue = false;
-     
-				const program = programs[i];
-				
-				const start = new Date(program.dateTimeStart);
-				const end = new Date(program.dateTimeEnd);
-
-				if (now >= start && now <= end) {
-					booContinue = true;
-					curStartTime = program.dateTimeStart;
-					curTitle = program.programTitle;
-					if (i + 1 < programs.length) {
-						nextProgram = programs[i + 1];
-						nextStartTime = nextProgram.dateTimeStart;
-						nextTitle = nextProgram.programTitle;
-					}
-					
-				}
-				if (booContinue){
-                    const channelElement = document.createElement('div');
-                    const currentProgramElement = document.createElement('div');
-                    currentProgramElement.className = 'program';
-                    currentProgramElement.innerHTML = `${formatTime(new Date(curStartTime))} : ${curTitle}`;              
-
-                    if (nextProgram) {
-                        currentProgramElement.innerHTML += `<br>${formatTime(new Date(nextStartTime))} : ${nextTitle}`;
-                    }
-					channelElement.appendChild(currentProgramElement);
-                    scheduleContainer.appendChild(channelElement);
-					break;
-				}
-                
-            }
-        } catch (error) {
-            console.error('Failed to load schedules:', error);
-        }
-    }
-    // Function to parse the UTC time string
-    function parseTime(utcString) {
-        return new Date(utcString + 'Z'); // Append 'Z' to ensure it is treated as UTC
-    }
-
-    // Function to format the time for display
-    function formatTime(date) {
-        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-    }
-	
-	function getTodayDate() {
-        const today = new Date();
-        return today.toISOString().split('T')[0];
-    }
-</script>
-</body>
 </html>
