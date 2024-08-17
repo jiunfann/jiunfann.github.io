@@ -21,10 +21,6 @@ player.configure({
 		'01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8'
 	}
   }
-  abr: {
-		enabled: true,  // Enable ABR but start with the preferred resolution
-		defaultBandwidthEstimate: 1000000 // Adjust this if needed
-	}
 });
 // Event listener to select the desired resolution after the manifest is loaded
 player.addEventListener('trackschanged', function() {
