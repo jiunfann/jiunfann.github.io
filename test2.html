@@ -22,6 +22,12 @@ player.configure({
 	}
   }
 });
+// Configure Shaka Player
+player.configure({
+    abr: {
+        enabled: false  // Disable ABR initially
+    }
+});
 // Event listener to select the desired resolution after the manifest is loaded
 player.addEventListener('trackschanged', function() {
     const tracks = player.getVariantTracks();
