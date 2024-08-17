@@ -22,6 +22,23 @@ player.configure({
 	}
   }
 });
+// Configure Shaka Player
+player.configure({
+    abr: {
+        enabled: false  // Disable ABR initially
+    }
+});
+// Event listener to select the desired resolution after the manifest is loaded
+player.addEventListener('trackschanged', function() {
+    const tracks = player.getVariantTracks();
+    
+    // Find the track with the desired resolution (540p in this case)
+    const preferredTrack = tracks.find(track => track.height === 540);
+	console.log(preferredTrack);
+    if (preferredTrack) {
+        player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
+    }
+});
 player.setTextTrackVisibility(true);
 window.player = player; 
 window.ui = ui; 
