@@ -28,7 +28,7 @@ player.addEventListener('trackschanged', function() {
     
     // Find the track with the desired resolution (540p in this case)
     const preferredTrack = tracks.find(track => track.height === 540);
-
+	console.log(preferredTrack);
     if (preferredTrack) {
         player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
     }
