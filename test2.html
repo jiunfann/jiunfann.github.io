@@ -28,9 +28,6 @@ player.configure({
         enabled: false  // Disable ABR initially
     }
 });
-player.configure({
-    preferredAudioLanguage: 'yue',  // Set preferred audio language to cantonese
-});
 
 // Event listener to select the desired resolution after the manifest is loaded
 player.addEventListener('trackschanged', function() {
@@ -38,9 +35,12 @@ player.addEventListener('trackschanged', function() {
     
     // Find the track with the desired resolution (540p in this case)
     const preferredTrack = tracks.find(track => track.height === 720);
-	console.log(preferredTrack);
     if (preferredTrack) {
         player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
+    }
+	const preferredLanguage = tracks.find(track => track.originalLanguage === 'yue');
+    if (preferredLanguage) {
+        player.selectVariantTrack(preferredLanguage, /* clearBuffer */ true);
     }
 });
 player.setTextTrackVisibility(true);
