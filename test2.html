@@ -18,7 +18,7 @@ player.configure({
   drm: {
 	clearKeys: {
 	  // 'key-id-in-hex': 'key-in-hex',
-		'01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8'
+		'e36e0cbdef0677b48dba5c63e8caaf10': 'ecfb454b2f3e238c5b5dc196e4f91fb8'
 	}
   }
 });
@@ -28,12 +28,16 @@ player.configure({
         enabled: false  // Disable ABR initially
     }
 });
+player.configure({
+    preferredAudioLanguage: 'yue',  // Set preferred audio language to cantonese
+});
+
 // Event listener to select the desired resolution after the manifest is loaded
 player.addEventListener('trackschanged', function() {
     const tracks = player.getVariantTracks();
     
     // Find the track with the desired resolution (540p in this case)
-    const preferredTrack = tracks.find(track => track.height === 540);
+    const preferredTrack = tracks.find(track => track.height === 720);
 	console.log(preferredTrack);
     if (preferredTrack) {
         player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
@@ -83,7 +87,7 @@ if (event.buffering) {
 }
 });
 controls.addEventListener('error', onUIErrorEvent); 
-try{player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
+try{player.load('https://linearjitp-playback.astro.com.my/dash-wv/linear/401/default.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}
 }
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
