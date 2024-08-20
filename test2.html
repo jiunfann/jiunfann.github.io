@@ -34,13 +34,9 @@ player.addEventListener('trackschanged', function() {
     const tracks = player.getVariantTracks();
     
     // Find the track with the desired resolution (540p in this case)
-    const preferredTrack = tracks.find(track => track.height === 720);
+    const preferredTrack = tracks.find(track => track.height === 720 && track.originalLanguage === 'yue');
     if (preferredTrack) {
         player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
-    }
-	const preferredLanguage = tracks.find(track => track.originalLanguage === 'yue');
-    if (preferredLanguage) {
-        player.selectVariantTrack(preferredLanguage, /* clearBuffer */ true);
     }
 });
 player.setTextTrackVisibility(true);
