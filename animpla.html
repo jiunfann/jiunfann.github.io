@@ -34,7 +34,7 @@ player.addEventListener('trackschanged', function() {
     const tracks = player.getVariantTracks();
     console.log(tracks);
     // Find the track with the desired resolution (540p in this case)
-    const preferredTrack = tracks.find(track => track.height === 720 && track.originalLanguage === 'yue');
+    const preferredTrack = tracks.find(track => track.height === 720);
     if (preferredTrack) {
         player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
     }
