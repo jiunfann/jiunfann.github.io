@@ -39,6 +39,10 @@ player.addEventListener('trackschanged', function() {
         player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
     }
 });
+
+player.configure({
+    preferredTextLanguage: 'zh'  // Set preferred subtitle language to Chinese (中文)
+});
 player.setTextTrackVisibility(true);
 window.player = player; 
 window.ui = ui; 
