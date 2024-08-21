@@ -358,7 +358,7 @@ td:focus {
 						tempCell = channelNumber.substring(2,channelNumber.length);
 					}
 					try{
-					const url = document.getElementById('row'+tempRow+'cell'+tempCell).href;
+					const url = document.getElementById('row'+tempRow+'cell'+tempCell).data-href;
 					window.open(url,'_blank');
 					}catch(error){console.log(error);}
 				}
