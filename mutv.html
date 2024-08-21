@@ -12,20 +12,6 @@
  preload: 'auto',
  plugins: {"core": [LevelSelector]}, 
  parentId: "#vid"});
-
- // Automatically enter fullscreen when the video starts playing
- player.on(Clappr.Events.PLAYER_PLAY, function() {
-    var videoElement = player.core.el.querySelector('video');
-    if (videoElement.requestFullscreen) {
-      videoElement.requestFullscreen();
-    } else if (videoElement.mozRequestFullScreen) { // Firefox
-      videoElement.mozRequestFullScreen();
-    } else if (videoElement.webkitRequestFullscreen) { // Chrome, Safari and Opera
-      videoElement.webkitRequestFullscreen();
-    } else if (videoElement.msRequestFullscreen) { // IE/Edge
-      videoElement.msRequestFullscreen();
-    }
-  });
 </script>
 <script id="hydro_config" type="text/javascript">
     window.Hydro_tagId = "5b94e61b-28be-47a3-bc18-474e8f6859a5";
