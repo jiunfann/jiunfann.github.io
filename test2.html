@@ -327,7 +327,7 @@ td:focus {
 				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 				break;
 			case 'Enter' || 13:
-				const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).href;
+				const url = document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).getAttribute('data-href');
 				//document.getElementById('row'+currentRowIndex+'cell'+currentCellIndex).focus();
 				window.open(url,'_blank');
 				break;
