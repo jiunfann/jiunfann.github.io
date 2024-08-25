@@ -33,7 +33,7 @@ player.configure({
 player.addEventListener('trackschanged', function() {
     const tracks = player.getVariantTracks();
     console.log(tracks);
-    // Find the track with the desired resolution (540p in this case)
+    // Find the track with the desired resolution (720p in this case)
     const preferredTrack = tracks.find(track => track.height === 720);
     if (preferredTrack) {
         player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
@@ -55,7 +55,7 @@ if (event.buffering) {
 
 	// Set a timeout for 3 seconds
 	bufferingTimeout = setTimeout(function() {
-		console.log('Buffering has lasted more than 3 seconds.');
+		console.log('Buffering has lasted more than 5 seconds.');
 		// You can add additional logic here, like showing a message to the user
 		if (player) {
 			var currentSource = player.getAssetUri();
@@ -66,7 +66,7 @@ if (event.buffering) {
 				console.error('Error reloading video', error);
 			});
 		}
-	}, 3000);
+	}, 5000);
 
 } else {
 	// Buffering ended
