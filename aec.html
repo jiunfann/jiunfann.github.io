@@ -18,7 +18,8 @@ player.configure({
   drm: {
 	clearKeys: {
 	  // 'key-id-in-hex': 'key-in-hex',
-		'01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8'
+		//'01eb1168208940f8b270b4e0994570e7': 'e75165d38b909567c03353ae4b27b6f8'
+		'8da72ca8501a4deb4bfc381fe1737ef4': '06282157da4e8f97623a70ed017fad10'
 	}
   }
 });
@@ -83,7 +84,8 @@ if (event.buffering) {
 }
 });
 controls.addEventListener('error', onUIErrorEvent); 
-try{player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
+//try{player.load('https://d1yws6emo43ny.cloudfront.net/CH1/masterCH1.mpd'); 
+try{player.load('https://linears-playback.astro.com.my/vsg/412EF9atScc1YHxHYRS84_oNi1SBJuY-4nqg4WybrA7SI=EDCs/dash-wv/jitp-linearwm/2400/default_primary.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}
 }
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
