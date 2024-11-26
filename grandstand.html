@@ -1,27 +1,96 @@
 <!DOCTYPE html><html><head>
 <meta name='viewport' content='width=device-width, initial-scale=1.0' />
 <meta name="referrer" content="no-referrer" />
+<script src='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.7/shaka-player.ui.js' crossorigin='anonymous'></script>
+<link rel='stylesheet' href='https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.7.7/controls.css' crossorigin='anonymous' />
 </head><body><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
 <body bgcolor='black' style='margin:0' oncontextmenu='return false' onkeydown='return false' onmousedown='return false'><script>!function(a,b,c,d,e,f){a.ddjskey=e;a.ddoptions=f||null;var m=b.createElement(c),n=b.getElementsByTagName(c)[0];m.async=1,m.src=d,n.parentNode.insertBefore(m,n)}(window,document,"script","https://js.datadome.co/tags.js","99B1C08278137CE22ADB60CE8DE020", {"ajaxListenerPath": true});</script>
 <center> 
-<script src="https://content.jwplatform.com/libraries/Z79JsmAO.js"></script>
-<div id="jwplayerDiv"></div>
-<script>	
-jwplayer("jwplayerDiv").setup({
-    //playlist: [{
-  width: "100%",
-  height: "680",
-  autostart: true,
-        file: "https://d3ey18635ukr4v.cloudfront.net/CH1/masterCH1.mpd",
-		//type: "dash",
-	    drm: {
-	        clearkey: {
-	          key: '3bedd0bcd11756016c9a3ccbe79f6665',
-	          keyId: 'c5e64178c33e4185a3406d84252cd7a0'
-	        }
-	      }
-   // }]
+<div data-shaka-player-container id="data-shaka-player-container" style='width: 100%; height: 100%'>
+<video data-shaka-player autoplay id='video' style='width:100%;height:100%;'></video></div>
+<script> 
+async function init() { 
+var video = document.getElementById('video');  
+var ui = video['ui']; 
+var controls = ui.getControls(); 
+var player = controls.getPlayer();
+player.configure({
+  drm: {
+	clearKeys: {
+	  // 'key-id-in-hex': 'key-in-hex',
+	  'c5e64178c33e4185a3406d84252cd7a0': '3bedd0bcd11756016c9a3ccbe79f6665'
+	}
+  }
 });
-</script>
+// Configure Shaka Player
+player.configure({
+    abr: {
+        enabled: false  // Disable ABR initially
+    }
+});
+// Event listener to select the desired resolution after the manifest is loaded
+player.addEventListener('trackschanged', function() {
+    const tracks = player.getVariantTracks();
+    
+    // Find the track with the desired resolution (540p in this case)
+    const preferredTrack = tracks.find(track => track.height === 720);
+	console.log(preferredTrack);
+    if (preferredTrack) {
+        player.selectVariantTrack(preferredTrack, /* clearBuffer */ true);
+    }
+});
+player.setTextTrackVisibility(true);
+window.player = player; 
+window.ui = ui; 
+player.addEventListener('error', onPlayerErrorEvent); 
+player.addEventListener('buffering', function(event) {
+if (event.buffering) {
+	// Buffering started
+	console.log('Buffering started...');
+	bufferingStartTime = Date.now();
+
+	// Set a timeout for 3 seconds
+	bufferingTimeout = setTimeout(function() {
+		console.log('Buffering has lasted more than 5 seconds.');
+		// You can add additional logic here, like showing a message to the user
+		if (player) {
+			var currentSource = player.getAssetUri();
+			player.load(currentSource).then(() => {
+			video.play();
+		    console.log('Video reloaded!');
+			}).catch((error) => {
+				console.error('Error reloading video', error);
+			});
+		}
+	}, 5000);
+
+} else {
+	// Buffering ended
+	console.log('Buffering ended.');
+
+	if (bufferingTimeout) {
+		clearTimeout(bufferingTimeout);
+	}
+
+	// Calculate the total buffering time
+	if (bufferingStartTime !== null) {
+		const bufferingDuration = Date.now() - bufferingStartTime;
+		console.log(`Buffering lasted ${bufferingDuration} ms.`);
+	}
+
+	// Reset the start time
+	bufferingStartTime = null;
+}
+});
+controls.addEventListener('error', onUIErrorEvent); 
+try{player.load('https://d3ey18635ukr4v.cloudfront.net/CH1/masterCH1.mpd'); 
+console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}
+}
+function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
+function onPlayerError(error) {console.error('Error code', error.code, 'object', error);} 
+function onUIErrorEvent(errorEvent) {onPlayerError(event.detail);} 
+function initFailed(errorEvent) {console.error('Unable to load the UI library!');} 
+document.addEventListener('shaka-ui-loaded', init); 
+document.addEventListener('shaka-ui-load-failed', initFailed); 
 </script>
 </html>
