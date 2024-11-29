@@ -83,7 +83,7 @@ if (event.buffering) {
 }
 });
 controls.addEventListener('error', onUIErrorEvent); 
-try{player.load('https://linearjitp-playback.astro.com.my/dash-wv/linear/408/default.mpd'); 
+try{player.load('https://linearjitp-playback.astro.com.my/dash-wv/linear/408/default_primary.mpd'); 
 console.log('The video has now been loaded!');} catch (error) {onPlayerError(error);}
 }
 function onPlayerErrorEvent(errorEvent) {onPlayerError(event.detail);} 
