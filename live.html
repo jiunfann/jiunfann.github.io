@@ -402,7 +402,7 @@ td:focus {
             const data = await response.json();
 			
 			let stringArray = ['235','457','486','487','154','138','164','241','236','466','313','194','456','474',
-							   '395','396','106','115','48','467','355','425','134','158','203','424','427','383','384','187',
+							   '395','396','106','115','48','467','355','425','134','158','424','427','383','384','187',
 							   '182','143','450','449','337','190','274','376','136','144','377',
 							   '485','371','370','392','543','536','537','540','542'];
             
@@ -446,7 +446,6 @@ td:focus {
 						if (nextProgram) {
 							currentProgramElement.innerHTML += `<br>${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
 						}
-						alert(currentProgram+"|"+headchannelid+"|"+channelid);
 						channelElement.appendChild(currentProgramElement);
 						scheduleContainer.appendChild(channelElement);
 					}
