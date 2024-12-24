@@ -246,10 +246,11 @@ td:focus {
 	<td align="center" style="width:25%" data-href="https://jiunfann.github.io/iqiyi.html" id="row6cell0"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/355_144.png" alt="iqiyi"></div>60<div class="bottom-section"><div id="schedule-container-355"></div></div></div></td>
 	<td align="center" style="width:25%" data-href="https://jiunfann.github.io/tvbclassic.html" id="row6cell1"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/425_144.png" alt="tvbclassic"></div>61<div class="bottom-section"><div id="schedule-container-425"></div></div></div></td>
 	<td align="center" style="width:25%" data-href="https://jiunfann.github.io/tianyin.html" id="row6cell2"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/134_144.png" alt="tianyin"></div>62<div class="bottom-section"><div id="schedule-container-134"></div></div></div></td>
-	</tr>
+	<td align="center" style="width:25%" data-href="https://myvi.servebeer.com/token/other/qj.html" id="row6cell3"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/158_144.png" alt="qj"></div>63<div class="bottom-section"><div id="schedule-container-158"></div></div></div></td>    
+    </tr>
     <tr>
     <td align="center" style="width:25%" data-href="https://jiunfann.github.io/320.html" id="row7cell0"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/384_144.png" alt="tvbs" width="100"></div>70<div class="bottom-section"><div id="schedule-container-384"></div></div></div></td>
-    <td align="center" style="width:25%" data-href="https://myvi.servebeer.com/ccm.html" id="row7cell1"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/187_144.png" alt="CCM"></div>71<div class="bottom-section"><div id="schedule-container-187"></div></div></div></td>
+    <td align="center" style="width:25%" data-href="https://jiunfann.github.io/ccm.html" id="row7cell1"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/187_144.png" alt="CCM"></div>71<div class="bottom-section"><div id="schedule-container-187"></div></div></div></td>
 	<td align="center" style="width:25%" data-href="https://jiunfann.github.io/aec.html" id="row7cell2"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/182_144.png" alt="aec"></div>72<div class="bottom-section"><div id="schedule-container-182"></div></div></div></td> 
 	<td align="center" style="width:25%" data-href="https://jiunfann.github.io/huanxi.html" id="row7cell3"><div class="td-container"><div class="top-section"><img src="https://divign0fdw3sv.cloudfront.net/Images/ChannelLogo/contenthub/162_144.png" alt="huanhee"></div>73<div class="bottom-section"><div id="schedule-container-162"></div></div></div></td>
     </tr>
@@ -392,7 +393,6 @@ td:focus {
 </script>
 <script>
 	loadSchedules();
-	//loadMeWatchSchedules();
 	loadRTMSchedules();
     // Function to fetch and display the current and next schedules
     async function loadSchedules() {
@@ -402,9 +402,9 @@ td:focus {
             const data = await response.json();
 			
 			let stringArray = ['235','457','486','487','154','138','164','241','236','466','313','194','456','474',
-							   '395','396','106','115','48','467','355','425','134','203','424','427','383','384','187',
+							   '395','396','106','115','48','467','355','425','134','158','203','424','427','383','384','187',
 							   '182','382','43','385','162','143','450','449','337','190','274','376','136','144','377',
-							   '485','371','370','392','543','536','537','540','542','158'];
+							   '485','371','370','392','543','536','537','540','542'];
             
             const now = new Date();
 
@@ -451,69 +451,6 @@ td:focus {
 					}
 				});
 			}
-        } catch (error) {
-            console.error('Failed to load schedules:', error);
-        }
-    }
-	 async function loadMeWatchSchedules() {
-        // Get current date in YYYY-MM-DD format
-        const today = new Date();
-        const yesterday = new Date(today);
-        yesterday.setDate(today.getDate() - 1);
-		const year = yesterday.getFullYear();
-		const month = String(yesterday.getMonth() + 1).padStart(2, '0'); // Months are zero-based
-		const day = String(yesterday.getDate()).padStart(2, '0');
-		const paraYesterday= `${year}-${month}-${day}`;
-
-        // URL with the current date
-        const apiUrl = `https://cdn.mewatch.sg/api/schedules?channels=97104&date=${paraYesterday}&duration=24&ff=idp%2Cldp%2Crpt%2Ccd&hour=16&intersect=true&lang=en&segments=all`;
-		console.log(apiUrl);
-        try {
-            const response = await fetch(apiUrl);
-            const data = await response.json();
-
-            const scheduleContainer = document.getElementById('schedule-container-sgch8');
-            const now = new Date();
-
-            data.forEach(schedule => {
-				
-                const programs = schedule.schedules;
-                
-                let currentProgram = null;
-                let nextProgram = null;
-				var currDateTimeInUtc = '';
-				var nextDateTimeInUtc = '';
-
-                for (let i = 0; i < programs.length; i++) {
-                    const program = programs[i];
-					
-                    const start = new Date(program.startDate);
-                    const end = new Date(program.endDate);
-                    if (now >= start && now <= end) {
-                        currentProgram = program;
-						console.log(program.item.title);
-                        if (i + 1 < programs.length) {
-                            nextProgram = programs[i + 1];
-							console.log(nextProgram.item.title);
-                        }
-                        break;
-                    }
-                }
-
-                if (currentProgram) {
-									
-                    const channelElement = document.createElement('div');
-                    const currentProgramElement = document.createElement('div');
-                    currentProgramElement.className = 'program';
-                    currentProgramElement.innerHTML = `${formatTime(new Date(currentProgram.startDate))} : ${currentProgram.item.title}`;
-
-                    if (nextProgram) {
-                        currentProgramElement.innerHTML += `<br>${formatTime(new Date(nextProgram.startDate))} : ${nextProgram.item.title}`;
-                    }
-					channelElement.appendChild(currentProgramElement);
-                    scheduleContainer.appendChild(channelElement);
-                }
-            });
         } catch (error) {
             console.error('Failed to load schedules:', error);
         }
