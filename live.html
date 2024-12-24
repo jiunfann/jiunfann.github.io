@@ -446,8 +446,8 @@ td:focus {
 						if (nextProgram) {
 							currentProgramElement.innerHTML += `<br>${formatTime(nextDateTimeInUtc)} : ${nextProgram.title}`;
 						}
+						alert(currentProgramElement);
 						channelElement.appendChild(currentProgramElement);
-						alert(channelElement);
 						scheduleContainer.appendChild(channelElement);
 					}
 				});
