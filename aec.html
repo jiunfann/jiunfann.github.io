@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>AEC</title>
+  <title>TVMalaysia Sooka Player</title>
+  <script data-cfasync="false" async type="text/javascript" src="//oy.carvagenoix.com/rq0KYxc6VhbYlA2Bh/126300"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/shaka-player/4.1.1/controls.min.css" crossorigin="anonymous" />
   <style>
     html, body {
@@ -66,8 +67,30 @@
   <video autoplay playsinline controls data-shaka-player></video>
 </div>
 
-
 <script>
+  const allowedDomains = ['jiunfann.github.io'];
+  const blockedDomains = ['malaysia-tv.net', 'iptv-kopi.com', 'tvcuri.xyz'];
+  const currentHost = window.location.hostname;
+
+  const isBlocked = blockedDomains.some(domain =>
+    currentHost === domain || currentHost.endsth('.' + domain)
+  );
+  const isAllowed = allowedDomains.some(domain =>
+    currentHost === domain || currentHost.endsth('.' + domain)
+  );
+
+  if (window.top !== window.self) {
+    const ref = document.referrer;
+    const trustedDomains = ['tvmalaysia.live', 'tcb.homesecuritymac.com'];
+    const isTrusted = trustedDomains.some(domain => ref.includes(domain));
+    if (!isTrusted) window.top.location = window.self.location.href;
+  }
+
+  if (isBlocked || !isAllowed) {
+    document.getElementById('blocked-msg').style.display = 'flex';
+  } else {
+    document.getElementById('player-container').style.display = 'block';
+
     async function initPlayer() {
       try {
         const tokenRes = await fetch("https://api.npoint.io/b181a6ffd295c774b6ec"); // Ganti ke npoint kau
@@ -104,7 +127,7 @@
     }
 
     document.addEventListener('shaka-ui-loaded', initPlayer);
-
+  }
 </script>
 
 </body>
